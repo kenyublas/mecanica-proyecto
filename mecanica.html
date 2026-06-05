@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibraciones en Centrífuga de Pesca — Mecánica Clásica UTP 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap');
+
+:root {
+  --orange: #e05c2a;
+  --blue: #4a9eff;
+  --green: #4caf50;
+  --red: #e74c3c;
+  --yellow: #ffaa00;
+  --bg: #0f1117;
+  --bg2: #141820;
+  --bg3: #1a1f2e;
+  --border: #2e3250;
+  --text: #ffffff;
+  --muted: #555;
+  --font: 'Barlow', sans-serif;
+  --font-title: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: #000; font-family: var(--font);
+}
+
+/* ===== PRESENTATION WRAPPER ===== */
+#app {
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+}
+
+/* ===== SLIDES CONTAINER ===== */
+#slides-wrapper {
+  flex: 1; overflow: hidden; position: relative;
+}
+
+.slides-track {
+  display: flex; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.slide {
+  min-width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 36px 48px;
+  position: relative; overflow: hidden;
+}
+
+/* ===== NAV BAR ===== */
+#navbar {
+  height: 48px; background: #0a0c12;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 20px; flex-shrink: 0;
+}
+
+.nav-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: #aaa; padding: 6px 20px; border-radius: 6px;
+  cursor: pointer; font-family: var(--font); font-size: 13px;
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: var(--border); color: #fff; }
+
+.nav-dots { display: flex; gap: 6px; align-items: center; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--border); cursor: pointer;
+  transition: all 0.2s;
+}
+.dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
+.dot.done { background: #2e4a2e; }
+
+.nav-info { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
+
+/* ===== SLIDE HEADER ===== */
+.slide-tag {
+  font-size: 10px; color: var(--orange); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 14px;
+  font-family: var(--font-title);
+}
+
+.slide-title {
+  font-family: var(--font-title); font-size: 28px;
+  font-weight: 700; color: var(--text);
+  margin-bottom: 24px; line-height: 1.2;
+}
+
+/* ===== UTILS ===== */
+.orange { color: var(--orange); }
+.blue { color: var(--blue); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.yellow { color: var(--yellow); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); }
+
+.card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+}
+.badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 20px; font-size: 10px; font-weight: 600;
+}
+.badge-warn { background: #e05c2a22; border: 1px solid #e05c2a55; color: var(--orange); }
+.badge-danger { background: #e74c3c22; border: 1px solid #e74c3c55; color: var(--red); }
+.badge-ok { background: #4caf5022; border: 1px solid #4caf5055; color: var(--green); }
+.badge-blue { background: #4a9eff22; border: 1px solid #4a9eff55; color: var(--blue); }
+
+/* ============================================================
+   SLIDE 1 — PORTADA ANIMADA
+   ============================================================ */
+#s1 { padding: 0; }
+#portada-canvas { width: 100%; height: 100%; display: block; }
+
+/* ============================================================
+   SLIDE 2 — PROBLEMA
+   ============================================================ */
+.s2-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;
+}
+.s2-stat { font-size: 52px; font-weight: 700; font-family: var(--font-title); }
+.s2-label { font-size: 15px; color: #ccc; margin-top: 6px; line-height: 1.4; font-weight: 500; }
+.s2-note { font-size: 13px; color: #666; margin-top: 8px; }
+.s2-risk {
+  grid-column: span 2;
+  background: #e05c2a0a; border: 1px solid #e05c2a33;
+  border-radius: 10px; padding: 16px;
+  display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+}
+.risk-item { font-size: 14px; color: #999; }
+.risk-item span { color: var(--orange); margin-right: 4px; }
+
+/* ============================================================
+   SLIDE 3 — MODELO SISTEMA
+   ============================================================ */
+#model-canvas { width: 100%; flex: 1; display: block; border-radius: 8px; background: #0c0e14; }
+
+/* ============================================================
+   SLIDE 4 — CALCS EN VIVO
+   ============================================================ */
+.steps-list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto; }
+.step-item {
+  border-radius: 8px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 14px;
+  opacity: 0; transform: translateX(-20px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  border: 1px solid transparent; flex-shrink: 0;
+}
+.step-item.show { opacity: 1; transform: translateX(0); }
+.step-item.active { border-color: rgba(224,92,42,0.4); background: #1a1520; }
+.step-item.done { background: var(--bg2); border-color: var(--border); }
+.step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+}
+.step-body { flex: 1; }
+.step-name { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 3px; font-weight: 600; }
+.step-formula { font-family: var(--font-mono); font-size: 11px; color: #666; }
+.step-calc { font-family: var(--font-mono); font-size: 10px; color: #444; margin-top: 2px; }
+.step-result { font-size: 17px; font-weight: 600; margin-top: 3px; font-family: var(--font-title); }
+.step-note { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.step-check { font-size: 16px; margin-left: auto; opacity: 0; transition: opacity 0.3s; flex-shrink: 0; }
+.step-check.show { opacity: 1; }
+.calc-progress { display: flex; gap: 5px; margin-bottom: 14px; align-items: center; }
+.cp-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--border); border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.cp-dot.done { background: var(--green); border-color: var(--green); }
+.cp-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.3); }
+.cp-label { font-size: 10px; color: var(--muted); margin-left: 8px; }
+.calc-btns { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
+.calc-counter { font-size: 11px; color: var(--muted); margin-left: auto; font-family: var(--font-mono); }
+
+/* ============================================================
+   SLIDE 5 — GRAFICA RESONANCIA
+   ============================================================ */
+.chart-row { display: flex; gap: 16px; flex: 1; align-items: flex-start; }
+#res-canvas { flex: 1; height: 100%; border-radius: 8px; background: #0c0e14; display: block; }
+.chart-side { width: 170px; display: flex; flex-direction: column; gap: 10px; padding-top: 8px; }
+.chart-info { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+.ci-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.ci-val { font-size: 22px; font-weight: 700; font-family: var(--font-title); }
+.ci-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.chart-controls { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.ctrl-row { display: flex; align-items: center; gap: 8px; }
+.ctrl-row label { font-size: 10px; color: var(--muted); min-width: 80px; }
+.ctrl-row input[type=range] { flex: 1; accent-color: var(--orange); }
+.ctrl-row span { font-size: 10px; color: #aaa; min-width: 36px; text-align: right; font-family: var(--font-mono); }
+.res-danger {
+  background: #e74c3c11; border: 1px solid #e74c3c33;
+  border-radius: 10px; padding: 10px; text-align: center;
+  font-size: 11px; color: var(--red); line-height: 1.5;
+  opacity: 0; transition: opacity 0.4s;
+}
+
+/* ============================================================
+   SLIDE 6 — SLIDERS INTERACTIVOS
+   ============================================================ */
+.inter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; }
+.inter-col { display: flex; flex-direction: column; gap: 12px; }
+.slider-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.sl-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.sl-val { font-size: 26px; font-weight: 700; font-family: var(--font-title); margin-bottom: 8px; }
+.sl-unit { font-size: 12px; color: var(--muted); margin-left: 4px; }
+.sl-range { width: 100%; accent-color: var(--orange); }
+.sl-range-blue { accent-color: var(--blue); }
+.result-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.rp-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+.rp-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1f2e; }
+.rp-row:last-child { border-bottom: none; }
+.rp-name { font-size: 11px; color: #888; }
+.rp-value { font-size: 16px; font-weight: 700; font-family: var(--font-title); }
+.danger-indicator {
+  margin-top: 12px; padding: 10px; border-radius: 8px; text-align: center;
+  font-size: 12px; font-weight: 600; transition: all 0.3s;
+}
+
+/* ============================================================
+   SLIDE 7 — SIMULACION RESONANCIA
+   ============================================================ */
+#sim-canvas { width: 100%; flex: 1; display: block; border-radius: 8px; background: #0c0e14; }
+.sim-controls { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+
+/* ============================================================
+   SLIDE 8 — MAQUETA 3D ANIMADA
+   ============================================================ */
+#maqueta-canvas { width: 100%; flex: 1; display: block; border-radius: 8px; background: #0c0e14; }
+
+/* ============================================================
+   SLIDE 9 — FATIGA MECANICA
+   ============================================================ */
+.fat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 16px; }
+.fat-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.fat-num { font-size: 30px; font-weight: 700; font-family: var(--font-title); }
+.fat-label { font-size: 10px; color: var(--muted); margin-top: 4px; }
+.fat-detail { font-size: 10px; color: #444; margin-top: 6px; font-family: var(--font-mono); }
+.bar-section { display: flex; flex-direction: column; gap: 10px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-name { font-size: 11px; color: #888; min-width: 160px; }
+.bar-bg { flex: 1; height: 14px; background: #0c0e14; border-radius: 7px; overflow: hidden; border: 1px solid var(--border); }
+.bar-fill { height: 100%; border-radius: 7px; transition: width 1.2s ease; }
+.bar-val { font-size: 12px; font-weight: 600; min-width: 70px; text-align: right; font-family: var(--font-mono); }
+
+/* ============================================================
+   SLIDE 10 — MEDIDAS CORRECTIVAS
+   ============================================================ */
+.med-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; flex: 1; }
+.med-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; transition: all 0.35s ease; position: relative;
+  overflow: hidden;
+}
+.med-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+.med-card.expanded {
+  border-color: var(--orange);
+  background: #1a1520;
+  grid-column: span 1;
+  transform: none;
+}
+.med-icon { font-size: 36px; transition: font-size 0.3s; }
+.med-card.expanded .med-icon { font-size: 28px; }
+.med-title { font-size: 15px; font-weight: 700; color: var(--text); font-family: var(--font-title); letter-spacing: 0.5px; }
+.med-desc { font-size: 12px; color: #888; line-height: 1.5; }
+.med-detail {
+  font-size: 12px; color: #aaa; line-height: 1.6;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0; text-align: left; width: 100%;
+  border-top: 1px solid var(--border); padding-top: 0; margin-top: 0;
+}
+.med-card.expanded .med-detail {
+  max-height: 200px; opacity: 1;
+  padding-top: 10px; margin-top: 6px;
+}
+.med-hint { font-size: 10px; color: var(--muted); margin-top: auto; }
+.med-card.expanded .med-hint { display: none; }
+
+/* ============================================================
+   SLIDE 11 — CONCLUSIONES
+   ============================================================ */
+.concl-list { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.concl-item {
+  background: var(--bg3); border-left: 3px solid var(--orange);
+  padding: 14px 18px; border-radius: 0 10px 10px 0;
+  font-size: 13px; color: #bbb; line-height: 1.5;
+}
+.concl-item strong { color: var(--text); }
+.concl-footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 14px; font-family: var(--font-mono); }
+
+/* ===== BUTTON STYLES ===== */
+.btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: #aaa; padding: 6px 16px; border-radius: 8px;
+  cursor: pointer; font-family: var(--font); font-size: 12px;
+  transition: all 0.2s;
+}
+.btn:hover { background: var(--border); color: #fff; }
+.btn.primary { background: #e05c2a22; border-color: var(--orange); color: var(--orange); }
+.btn.primary:hover { background: #e05c2a44; }
+.btn.blue-btn { background: #4a9eff22; border-color: var(--blue); color: var(--blue); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ============================================================
+   MOBILE RESPONSIVE — solo afecta pantallas < 768px
+   Desktop queda exactamente igual
+   ============================================================ */
+@media (max-width: 768px) {
+  html, body { overflow: hidden; touch-action: pan-y; }
+
+  #app { width: 100vw; height: 100vh; }
+
+  .slide {
+    padding: 20px 16px 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .slide-title { font-size: 20px; margin-bottom: 14px; }
+  .slide-tag { font-size: 9px; margin-bottom: 8px; }
+
+  /* Slide 2 - problema */
+  .s2-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .s2-stat { font-size: 32px; }
+  .s2-label { font-size: 12px; }
+  .s2-note { font-size: 10px; }
+  .s2-risk { flex-direction: column; gap: 6px; padding: 10px; }
+  .risk-item { font-size: 12px; }
+
+  /* canvas slides - scale to fit */
+  #model-canvas, #sim-canvas, #maqueta-canvas, #res-canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 45vh;
+    object-fit: contain;
+  }
+
+  /* Slide 4 - calculos */
+  .steps-list { max-height: 55vh; overflow-y: auto; gap: 6px; }
+  .step-item { padding: 10px 12px; gap: 10px; }
+  .step-result { font-size: 14px; }
+  .step-formula { font-size: 10px; }
+  .step-note { font-size: 9px; }
+
+  /* Slide 5 - grafica resonancia */
+  .chart-row { flex-direction: column; gap: 10px; }
+  .chart-side { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 8px; padding-top: 0; }
+  .chart-info { flex: 1; min-width: 80px; padding: 8px; }
+  .ci-val { font-size: 16px; }
+  .chart-controls { flex-direction: row; flex-wrap: wrap; }
+  .ctrl-row label { min-width: 60px; font-size: 10px; }
+
+  /* Slide 6 - calculadora */
+  .inter-grid { grid-template-columns: 1fr; gap: 10px; }
+  .sl-val { font-size: 20px; }
+  .rp-row { padding: 5px 0; }
+  .rp-value { font-size: 13px; }
+
+  /* Slide 7 - simulacion */
+  .sim-controls { flex-wrap: wrap; gap: 6px; }
+  .sim-controls .btn { font-size: 11px; padding: 5px 10px; }
+
+  /* Slide 8 - maqueta */
+  #maqueta-canvas { max-height: 50vh; }
+
+  /* Slide 9 - fatiga */
+  .fat-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
+  .fat-num { font-size: 24px; }
+  .bar-row { flex-wrap: wrap; gap: 4px; }
+  .bar-name { min-width: 100%; font-size: 10px; }
+  .bar-val { font-size: 11px; }
+
+  /* Slide 10 - medidas */
+  .med-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .med-icon { font-size: 28px; }
+  .med-title { font-size: 13px; }
+  .med-desc { font-size: 11px; }
+
+  /* Slide 11 - conclusiones */
+  .concl-item { font-size: 12px; padding: 10px 14px; }
+
+  /* navbar */
+  #navbar { height: 52px; padding: 0 10px; }
+  .nav-btn { padding: 6px 12px; font-size: 12px; }
+  .nav-info { font-size: 11px; }
+  .dot { width: 6px; height: 6px; }
+  .dot.active { width: 16px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="slides-wrapper">
+    <div class="slides-track" id="track">
+
+      <!-- ======================================================
+           SLIDE 1: PORTADA ANIMADA
+           ====================================================== -->
+      <div class="slide" id="s1">
+        <canvas id="portada-canvas"></canvas>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 2: EL PROBLEMA
+           ====================================================== -->
+      <div class="slide" id="s2">
+        <p class="slide-tag">Contexto del estudio</p>
+        <h2 class="slide-title">El Problema</h2>
+        <div class="s2-grid">
+          <div class="card">
+            <div class="s2-stat orange">#1</div>
+            <div class="s2-label">Perú: primer productor mundial de harina de pescado</div>
+            <div class="s2-note">700,000 empleos · 2.5% del PBI nacional</div>
+            <div class="s2-note" style="margin-top:6px;color:#666">Seguido de Tailandia, China y Chile · Epicentro: Chimbote, Áncash</div>
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="badge badge-ok">SNP 2025</span>
+              <span class="badge badge-blue">50% economía regional</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="s2-stat blue">3,000</div>
+            <div class="s2-label">RPM de operación de la centrífuga industrial</div>
+            <div class="s2-note">Sin monitoreo vibracional continuo en la mayoría de plantas pesqueras</div>
+            <div class="s2-note" style="margin-top:6px;color:#666">Aceleración centrípeta: 29,609 m/s² ≈ 3020g</div>
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="badge badge-warn">Alta velocidad</span>
+              <span class="badge badge-blue">ω = 314.16 rad/s</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="s2-stat" style="color:var(--yellow)">180,000</div>
+            <div class="s2-label">Ciclos de vibración por hora en operación continua</div>
+            <div class="s2-note">Genera fatiga estructural acumulativa en los soportes</div>
+            <div class="s2-note" style="margin-top:6px;color:#666">Equivale a 4.3 millones de ciclos por día · 50 ciclos/s</div>
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="badge badge-warn">Fatiga acelerada</span>
+              <span class="badge" style="background:#ffaa0022;border:1px solid #ffaa0055;color:#ffaa00">Carga cíclica</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="s2-stat red">rf = 1.006</div>
+            <div class="s2-label">Razón de frecuencia — sistema operando cerca de resonancia</div>
+            <div class="s2-note">Condición crítica: fn = 49.7 Hz ≈ fop = 50 Hz</div>
+            <div class="s2-note" style="margin-top:6px;color:#666">DAF = 9.93× · Fuerza amplificada: 2,940 N · σa = 39.2 MPa</div>
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="badge badge-danger">⚠ Zona crítica</span>
+              <span class="badge badge-danger">Supera límite fatiga</span>
+            </div>
+          </div>
+          <div class="s2-risk">
+            <div class="risk-item"><span>⚠</span>Paradas no programadas</div>
+            <div class="risk-item"><span>⚠</span>Fatiga estructural acelerada</div>
+            <div class="risk-item"><span>⚠</span>Resonancia mecánica</div>
+            <div class="risk-item"><span>⚠</span>Altos costos de mantenimiento correctivo</div>
+            <div class="risk-item"><span>⚠</span>Riesgo para el personal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 3: MODELO DEL SISTEMA
+           ====================================================== -->
+      <div class="slide" id="s3">
+        <p class="slide-tag">Modelado dinámico</p>
+        <h2 class="slide-title">Modelo del Sistema</h2>
+        <canvas id="model-canvas"></canvas>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 4: CALCULOS EN VIVO
+           ====================================================== -->
+      <div class="slide" id="s4">
+        <p class="slide-tag">Análisis matemático</p>
+        <h2 class="slide-title" style="margin-bottom:10px">Desarrollo de Cálculos</h2>
+        <div class="calc-progress" id="calc-progress"></div>
+        <div class="steps-list" id="steps-list"></div>
+        <div class="calc-btns">
+          <button class="btn primary" id="calc-next-btn" onclick="calcNext()">▶ Siguiente paso</button>
+          <button class="btn" onclick="calcReset()">↺ Reiniciar</button>
+          <span class="calc-counter" id="calc-counter">0 / 6</span>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 5: GRAFICA RESONANCIA
+           ====================================================== -->
+      <div class="slide" id="s5">
+        <p class="slide-tag">Dinámica vibracional</p>
+        <h2 class="slide-title" style="margin-bottom:10px">Curva de Resonancia</h2>
+        <div class="chart-row">
+          <canvas id="res-canvas"></canvas>
+          <div class="chart-side">
+            <div class="chart-info">
+              <div class="ci-label">Razón rf</div>
+              <div class="ci-val blue" id="ci-rf">1.006</div>
+              <div class="ci-sub">fop / fn</div>
+            </div>
+            <div class="chart-info">
+              <div class="ci-label">DAF</div>
+              <div class="ci-val orange" id="ci-daf">9.93×</div>
+              <div class="ci-sub">amplificación dinámica</div>
+            </div>
+            <div class="chart-info">
+              <div class="ci-label">Fuerza amplificada</div>
+              <div class="ci-val red" id="ci-fr">2,940 N</div>
+              <div class="ci-sub">Fd × DAF</div>
+            </div>
+            <div class="chart-controls">
+              <div class="ctrl-row">
+                <label>Amort. ξ</label>
+                <input type="range" id="xi-sl" min="1" max="30" value="5">
+                <span id="xi-lbl">0.05</span>
+              </div>
+              <div class="ctrl-row">
+                <label>fop (Hz)</label>
+                <input type="range" id="fop-sl" min="10" max="100" value="50">
+                <span id="fop-lbl">50</span>
+              </div>
+            </div>
+            <button class="btn primary" onclick="animateResCurve()" style="font-size:11px">▶ Animar rf</button>
+            <button class="btn blue-btn" onclick="gotoResonance()" style="font-size:11px">⚠ Ir a resonancia</button>
+            <div class="res-danger" id="res-danger">⚠ Sistema en<br><strong>ZONA DE RESONANCIA</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 6: SLIDERS INTERACTIVOS
+           ====================================================== -->
+      <div class="slide" id="s6">
+        <p class="slide-tag">Simulación interactiva</p>
+        <h2 class="slide-title" style="margin-bottom:10px">Calculadora de Resonancia</h2>
+        <div class="inter-grid">
+          <div class="inter-col">
+            <div class="slider-card">
+              <div class="sl-label">Velocidad de operación</div>
+              <div class="sl-val orange" id="sl-rpm">3,000 <span class="sl-unit">RPM</span></div>
+              <input type="range" class="sl-range" id="sl-rpm-input" min="500" max="6000" value="3000" step="50">
+            </div>
+            <div class="slider-card">
+              <div class="sl-label">Rigidez estructural k</div>
+              <div class="sl-val blue" id="sl-k">8.50 <span class="sl-unit">× 10⁶ N/m</span></div>
+              <input type="range" class="sl-range sl-range-blue" id="sl-k-input" min="1" max="20" value="8.5" step="0.1">
+            </div>
+            <div class="slider-card">
+              <div class="sl-label">Amortiguamiento ξ</div>
+              <div class="sl-val" style="color:var(--green)" id="sl-xi">0.05</div>
+              <input type="range" class="sl-range" style="accent-color:var(--green)" id="sl-xi-input" min="1" max="30" value="5" step="1">
+            </div>
+          </div>
+          <div class="inter-col">
+            <div class="result-panel">
+              <div class="rp-title">Resultados en tiempo real</div>
+              <div class="rp-row">
+                <span class="rp-name">Vel. angular ω</span>
+                <span class="rp-value blue" id="rp-omega">314.16 rad/s</span>
+              </div>
+              <div class="rp-row">
+                <span class="rp-name">Frec. operación fop</span>
+                <span class="rp-value blue" id="rp-fop">50.00 Hz</span>
+              </div>
+              <div class="rp-row">
+                <span class="rp-name">Frec. natural fn</span>
+                <span class="rp-value" style="color:var(--yellow)" id="rp-fn">49.70 Hz</span>
+              </div>
+              <div class="rp-row">
+                <span class="rp-name">Razón rf</span>
+                <span class="rp-value orange" id="rp-rf">1.006</span>
+              </div>
+              <div class="rp-row">
+                <span class="rp-name">Factor DAF</span>
+                <span class="rp-value red" id="rp-daf">9.93×</span>
+              </div>
+              <div class="rp-row">
+                <span class="rp-name">Fuerza dinámica Fd</span>
+                <span class="rp-value orange" id="rp-fd">296 N</span>
+              </div>
+              <div class="rp-row" style="border-bottom:none">
+                <span class="rp-name">Fuerza amplificada Fr</span>
+                <span class="rp-value red" id="rp-fr">2,940 N</span>
+              </div>
+              <div class="danger-indicator" id="danger-ind">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 7: SIMULACION RESONANCIA
+           ====================================================== -->
+      <div class="slide" id="s7">
+        <p class="slide-tag">Visualización dinámica</p>
+        <h2 class="slide-title" style="margin-bottom:10px">Simulación: Normal vs Resonancia</h2>
+        <canvas id="sim-canvas"></canvas>
+        <div class="sim-controls">
+          <button class="btn" onclick="simSetNormal()">✅ Operación normal</button>
+          <button class="btn primary" onclick="simSetResonance()">⚠ Activar resonancia</button>
+          <button class="btn" id="sim-pause-btn" onclick="simToggle()">⏸ Pausar</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:8px" id="sim-status">Operación normal — rf = 0.5</span>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 8: MAQUETA 3D ANIMADA
+           ====================================================== -->
+      <div class="slide" id="s8">
+        <p class="slide-tag">Prototipo didáctico</p>
+        <h2 class="slide-title" style="margin-bottom:10px">Diseño de la Maqueta</h2>
+        <canvas id="maqueta-canvas"></canvas>
+        <div class="sim-controls">
+          <button class="btn" onclick="maqSetSpeed(0.3)">🐢 Lento</button>
+          <button class="btn primary" onclick="maqSetSpeed(1)">▶ Normal (3000 RPM)</button>
+          <button class="btn" style="border-color:var(--red);color:var(--red)" onclick="maqSetSpeed(2.5)">⚠ Resonancia</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:8px" id="maq-rpm">3000 RPM</span>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 9: FATIGA MECANICA
+           ====================================================== -->
+      <div class="slide" id="s9">
+        <p class="slide-tag">Análisis estructural</p>
+        <h2 class="slide-title">Fatiga Mecánica</h2>
+        <div class="fat-grid">
+          <div class="fat-card">
+            <div class="fat-num orange">180,000</div>
+            <div class="fat-label">ciclos / hora continua</div>
+            <div class="fat-detail">50 ciclos/s × 3600 s/h</div>
+          </div>
+          <div class="fat-card">
+            <div class="fat-num red">39.2 MPa</div>
+            <div class="fat-label">esfuerzo alternante real</div>
+            <div class="fat-detail">σa = Mf / (I/c)</div>
+          </div>
+          <div class="fat-card">
+            <div class="fat-num" style="color:var(--yellow)">1,764 N·m</div>
+            <div class="fat-label">momento flector máximo</div>
+            <div class="fat-detail">Mf = Fr × d = 2940 × 0.6</div>
+          </div>
+        </div>
+        <div class="bar-section">
+          <div class="bar-row">
+            <span class="bar-name">Esfuerzo real σa</span>
+            <div class="bar-bg"><div class="bar-fill" id="bar-real" style="width:0%;background:var(--orange)"></div></div>
+            <span class="bar-val orange">39.2 MPa</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">Límite fatiga acero soldado</span>
+            <div class="bar-bg"><div class="bar-fill" id="bar-limit" style="width:0%;background:var(--blue)"></div></div>
+            <span class="bar-val blue">~30 MPa</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">Fuerza amplificada Fr</span>
+            <div class="bar-bg"><div class="bar-fill" id="bar-fr" style="width:0%;background:var(--red)"></div></div>
+            <span class="bar-val red">2,940 N</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">Fuerza sin resonancia Fd</span>
+            <div class="bar-bg"><div class="bar-fill" id="bar-fd" style="width:0%;background:var(--blue)"></div></div>
+            <span class="bar-val blue">296 N</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 10: MEDIDAS CORRECTIVAS
+           ====================================================== -->
+      <div class="slide" id="s10">
+        <p class="slide-tag">Soluciones propuestas</p>
+        <h2 class="slide-title">Medidas Correctivas</h2>
+        <div class="med-grid" id="med-grid"></div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 11: CONCLUSIONES
+           ====================================================== -->
+      <div class="slide" id="s11">
+        <p class="slide-tag">Cierre del estudio</p>
+        <h2 class="slide-title">Conclusiones</h2>
+        <div class="concl-list">
+          <div class="concl-item"><strong>Resonancia crítica:</strong> El sistema opera con rf = 1.006, extremadamente cercano a la zona de resonancia mecánica.</div>
+          <div class="concl-item"><strong>Amplificación peligrosa:</strong> El DAF = 9.93 multiplica la fuerza dinámica casi 10 veces, alcanzando 2,940 N.</div>
+          <div class="concl-item"><strong>Fatiga superada:</strong> El esfuerzo alternante (39.2 MPa) supera el límite admisible del acero estructural soldado (~30 MPa).</div>
+          <div class="concl-item"><strong>Impacto industrial:</strong> Las plantas pesqueras de Chimbote requieren implementar monitoreo vibracional y mantenimiento predictivo urgente.</div>
+          <div class="concl-item"><strong>Solución clave:</strong> Balanceo dinámico + rigidez estructural aumentada + amortiguamiento = reducción significativa de la fatiga mecánica.</div>
+        </div>
+        <div class="concl-footer">
+          ISO 20816 · API 684 · Mecánica Clásica UTP 2026 — Docente: Medrano Rojas Denys Gonzalo
+        </div>
+      </div>
+
+    </div><!-- end track -->
+  </div><!-- end slides-wrapper -->
+
+  <!-- ===== NAVBAR ===== -->
+  <div id="navbar">
+    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+    <div class="nav-dots" id="nav-dots"></div>
+    <span class="nav-info" id="nav-info">1 / 11</span>
+    <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// NAVIGATION
+// ============================================================
+const TOTAL = 11;
+let current = 0;
+const track = document.getElementById('track');
+const navDots = document.getElementById('nav-dots');
+const navInfo = document.getElementById('nav-info');
+
+// Build dots
+for(let i=0;i<TOTAL;i++){
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = ()=>goTo(i);
+  navDots.appendChild(d);
+}
+
+function updateNav(){
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.className = 'dot' + (i===current?' active':(i<current?' done':''));
+  });
+  navInfo.textContent = (current+1)+' / '+TOTAL;
+}
+
+function goTo(n){
+  current = Math.max(0, Math.min(TOTAL-1, n));
+  track.style.transform = 'translateX(-'+current*100+'%)';
+  updateNav();
+  onEnter(current);
+}
+function nextSlide(){ goTo(current+1); }
+function prevSlide(){ goTo(current-1); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') nextSlide();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') prevSlide();
+  if(e.key==='F5'){ e.preventDefault(); goTo(0); }
+});
+
+// ============================================================
+// TOUCH SWIPE — solo móvil, no afecta desktop
+// ============================================================
+(function(){
+  let touchStartX=0, touchStartY=0, touchStartTime=0;
+  const wrapper = document.getElementById('slides-wrapper');
+
+  wrapper.addEventListener('touchstart', e=>{
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, {passive:true});
+
+  wrapper.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const dt = Date.now() - touchStartTime;
+    // swipe horizontal: rápido, más horizontal que vertical, más de 50px
+    if(dt < 400 && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)*1.5){
+      if(dx < 0) nextSlide();
+      else prevSlide();
+    }
+  }, {passive:true});
+})();
+
+// ============================================================
+// SLIDE 1 — PORTADA ANIMADA
+// ============================================================
+(function(){
+  const cv = document.getElementById('portada-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H, t=0;
+
+  function resize(){
+    W = cv.width = cv.offsetWidth;
+    H = cv.height = cv.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const stars = Array.from({length:50},()=>({x:Math.random(),y:Math.random()*0.45,r:0.5+Math.random()*1.2,ph:Math.random()*Math.PI*2}));
+  const wins = [
+    {x:15,y:220,w:18,h:14,ph:0.0,c:'#e05c2a'},{x:45,y:220,w:18,h:14,ph:0.7,c:'#e05c2a'},
+    {x:75,y:220,w:18,h:14,ph:1.4,c:'#ffaa00'},{x:105,y:220,w:18,h:14,ph:2.1,c:'#e05c2a'},
+    {x:135,y:220,w:18,h:14,ph:0.3,c:'#ffaa00'},{x:155,y:233,w:14,h:10,ph:1.1,c:'#4a9eff'},
+    {x:178,y:233,w:14,h:10,ph:2.3,c:'#4a9eff'},{x:201,y:233,w:14,h:10,ph:0.5,c:'#ffaa00'},
+    {x:265,y:224,w:16,h:12,ph:0.2,c:'#4a9eff'},{x:292,y:224,w:16,h:12,ph:1.5,c:'#4a9eff'},
+    {x:319,y:224,w:16,h:12,ph:0.9,c:'#ffaa00'},{x:346,y:224,w:16,h:12,ph:2.0,c:'#4a9eff'},
+    {x:373,y:224,w:16,h:12,ph:0.4,c:'#e05c2a'},{x:400,y:224,w:16,h:12,ph:1.2,c:'#4a9eff'},
+    {x:598,y:227,w:15,h:11,ph:0.6,c:'#e05c2a'},{x:623,y:227,w:15,h:11,ph:1.9,c:'#ffaa00'},
+    {x:648,y:227,w:15,h:11,ph:0.1,c:'#e05c2a'},{x:673,y:227,w:15,h:11,ph:2.7,c:'#4a9eff'},
+    {x:698,y:227,w:15,h:11,ph:1.3,c:'#ffaa00'},{x:723,y:227,w:15,h:11,ph:0.8,c:'#e05c2a'},
+  ];
+  const boats = [
+    {x:240,spd:0.18,col:'#1a2535',w:120,cabX:35,cabW:50,cabH:15,mX:48},
+    {x:-160,spd:0.12,col:'#151e2e',w:130,cabX:30,cabW:55,cabH:14,mX:45},
+    {x:600,spd:0.22,col:'#111825',w:80,cabX:20,cabW:35,cabH:11,mX:28},
+  ];
+  const fishes = Array.from({length:8},()=>({x:Math.random()*800,y:295+Math.random()*50,spd:0.4+Math.random()*0.5,dir:Math.random()>0.5?1:-1,sz:6+Math.random()*8,ph:Math.random()*Math.PI*2,jph:Math.random()*Math.PI*2}));
+  const smokes=[];
+
+  function addSmoke(x){
+    smokes.push({x,y:0,life:1,sz:5,vx:(Math.random()-0.5)*0.3,vy:-0.4-Math.random()*0.3});
+  }
+  const smokeX=[65,112,308,489,667];
+
+  function draw(){
+    const sx=W/800, sy=H/450;
+    ctx.save(); ctx.scale(sx,sy);
+    const BW=800,BH=450;
+
+    // sky
+    const g=ctx.createLinearGradient(0,0,0,BH);
+    g.addColorStop(0,'#0a0c1a');g.addColorStop(0.4,'#1a1428');g.addColorStop(0.7,'#2d1f0e');g.addColorStop(1,'#1a0f05');
+    ctx.fillStyle=g;ctx.fillRect(0,0,BW,BH);
+    const rg=ctx.createRadialGradient(480,248,10,480,248,150);
+    rg.addColorStop(0,'rgba(255,140,0,0.18)');rg.addColorStop(1,'rgba(224,92,42,0)');
+    ctx.fillStyle=rg;ctx.fillRect(0,0,BW,BH);
+
+    // stars
+    stars.forEach(s=>{
+      const op=0.4+0.3*Math.sin(t*0.8+s.ph);
+      ctx.beginPath();ctx.arc(s.x*BW,s.y*BH,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${op})`;ctx.fill();
+    });
+    // moon
+    ctx.beginPath();ctx.arc(120,60,14,0,Math.PI*2);ctx.fillStyle='#e8d5a0';ctx.fill();
+    ctx.beginPath();ctx.arc(126,56,11,0,Math.PI*2);ctx.fillStyle='#1a1428';ctx.fill();
+
+    // mountains
+    ctx.beginPath();ctx.moveTo(0,270);
+    ctx.quadraticCurveTo(80,220,160,235);ctx.quadraticCurveTo(240,250,320,215);
+    ctx.quadraticCurveTo(400,180,480,210);ctx.quadraticCurveTo(560,240,640,220);
+    ctx.quadraticCurveTo(720,200,800,225);ctx.lineTo(800,270);ctx.lineTo(0,270);
+    ctx.fillStyle='#0f0a05';ctx.fill();
+
+    // sea
+    const sg=ctx.createLinearGradient(0,268,0,BH);
+    sg.addColorStop(0,'#0d1f35');sg.addColorStop(1,'#060e1a');
+    ctx.fillStyle=sg;ctx.fillRect(0,268,BW,BH-268);
+    for(let w=0;w<3;w++){
+      ctx.beginPath();
+      const yb=282+w*15,amp=2+w,freq=0.018-w*0.003,spd=t*(0.6-w*0.1);
+      ctx.moveTo(0,yb);
+      for(let x=0;x<=BW;x+=8) ctx.lineTo(x,yb+Math.sin(x*freq+spd)*amp);
+      ctx.strokeStyle=`rgba(30,58,90,${0.5-w*0.1})`;ctx.lineWidth=1;ctx.stroke();
+    }
+
+    // buildings
+    ctx.fillStyle='#0d1118';ctx.fillRect(0,210,160,62);
+    ctx.beginPath();ctx.moveTo(0,210);ctx.lineTo(160,210);ctx.lineTo(130,185);ctx.lineTo(30,185);ctx.closePath();
+    ctx.fillStyle='#111620';ctx.fill();
+    ctx.fillStyle='#0e1320';ctx.fillRect(140,225,110,47);
+    ctx.beginPath();ctx.moveTo(140,225);ctx.lineTo(250,225);ctx.lineTo(235,205);ctx.lineTo(155,205);ctx.closePath();
+    ctx.fillStyle='#121828';ctx.fill();
+    ctx.fillStyle='#0c1018';ctx.fillRect(250,215,200,57);
+    ctx.beginPath();ctx.moveTo(250,215);ctx.lineTo(450,215);ctx.lineTo(440,192);ctx.lineTo(260,192);ctx.closePath();
+    ctx.fillStyle='#101520';ctx.fill();
+    ctx.fillStyle='#0c1018';ctx.fillRect(580,218,220,54);
+    ctx.beginPath();ctx.moveTo(580,218);ctx.lineTo(800,218);ctx.lineTo(800,198);ctx.lineTo(600,198);ctx.closePath();
+    ctx.fillStyle='#101520';ctx.fill();
+
+    // chimneys
+    [[55,140,20,70],[105,155,14,55],[300,120,16,100],[480,145,18,85],[660,158,14,60]].forEach(c=>{
+      ctx.fillStyle='#0c0f14';ctx.fillRect(c[0],c[1],c[2],c[3]);
+      ctx.fillStyle='#111820';ctx.fillRect(c[0]-4,c[1]-4,c[2]+8,6);
+    });
+    [308,489].forEach((x,i)=>{
+      const op=0.6+0.4*Math.sin(t*1.5+i*1.2);
+      ctx.beginPath();ctx.arc(x,i===0?115:140,3,0,Math.PI*2);
+      ctx.fillStyle=`rgba(231,76,60,${op})`;ctx.fill();
+    });
+
+    // cranes
+    ctx.strokeStyle='#1a2535';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(173,230);ctx.lineTo(173,162);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(173,162);ctx.lineTo(215,148);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(215,148);ctx.lineTo(215,185);ctx.stroke();
+    ctx.lineWidth=3.5;
+    ctx.beginPath();ctx.moveTo(549,230);ctx.lineTo(549,152);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(549,152);ctx.lineTo(605,135);ctx.stroke();
+    ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(605,135);ctx.lineTo(605,178);ctx.stroke();
+    const cop=0.7+0.3*Math.sin(t*2);
+    ctx.beginPath();ctx.arc(605,132,2.5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,170,0,${cop})`;ctx.fill();
+
+    // smoke
+    if(Math.floor(t*8)%3===0) smokeX.forEach(x=>{if(Math.random()<0.3)addSmoke(x);});
+    for(let i=smokes.length-1;i>=0;i--){
+      const s=smokes[i];s.x+=s.vx;s.y-=Math.abs(s.vy);s.life-=0.005;s.sz+=0.15;
+      if(s.life<=0){smokes.splice(i,1);continue;}
+      ctx.beginPath();ctx.arc(s.x,140+s.y,s.sz,0,Math.PI*2);
+      ctx.fillStyle=`rgba(42,42,53,${s.life*0.35})`;ctx.fill();
+    }
+
+    // pier
+    ctx.fillStyle='#0a0e14';ctx.fillRect(200,263,400,8);
+    [210,260,340,420,500,570].forEach(x=>{ctx.fillStyle='#0a0e14';ctx.fillRect(x,268,8,18);});
+
+    // boats
+    boats.forEach(b=>{
+      b.x+=b.spd;if(b.x>BW+200)b.x=-200;
+      const bob=Math.sin(t*1.2+b.x*0.01)*1.5,bx=b.x,by=264+bob;
+      ctx.beginPath();ctx.moveTo(bx,by+10);
+      ctx.quadraticCurveTo(bx+b.w*0.1,by,bx+b.w*0.15,by);
+      ctx.lineTo(bx+b.w*0.85,by);ctx.quadraticCurveTo(bx+b.w*0.95,by,bx+b.w,by+10);
+      ctx.closePath();ctx.fillStyle=b.col;ctx.fill();
+      ctx.strokeStyle='#1e2f45';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle='#0e1a28';ctx.fillRect(bx+b.cabX,by-b.cabH,b.cabW,b.cabH);
+      ctx.strokeStyle='#1a2840';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(bx+b.mX,by-b.cabH);ctx.lineTo(bx+b.mX,by-b.cabH-22);ctx.stroke();
+      const ml=0.6+0.4*Math.sin(t*2.5+b.x*0.05);
+      ctx.beginPath();ctx.arc(bx+b.mX,by-b.cabH-22,2,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,170,0,${ml})`;ctx.fill();
+    });
+
+    // windows
+    wins.forEach(w=>{
+      const fl=Math.sin(t*0.4+w.ph*3);
+      const bl=Math.sin(t*0.15+w.ph);
+      const op=bl>0.3?(0.2+0.15*fl):0.04;
+      ctx.globalAlpha=op;ctx.fillStyle=w.c;ctx.fillRect(w.x,w.y,w.w,w.h);
+      ctx.globalAlpha=1;
+    });
+
+    // fish
+    fishes.forEach(f=>{
+      f.x+=f.spd*f.dir;if(f.x>BW+30)f.x=-30;if(f.x<-30)f.x=BW+30;
+      const jy=Math.sin(t*2+f.jph)*8,fy=f.y+jy;
+      if(fy>268)return;
+      ctx.save();ctx.translate(f.x,fy);ctx.scale(f.dir,1);
+      ctx.beginPath();ctx.ellipse(0,0,f.sz,f.sz*0.4,0,0,Math.PI*2);
+      ctx.fillStyle='rgba(74,158,255,0.5)';ctx.fill();
+      ctx.beginPath();ctx.moveTo(-f.sz*0.8,0);ctx.lineTo(-f.sz*1.4,-f.sz*0.4);ctx.lineTo(-f.sz*1.4,f.sz*0.4);ctx.closePath();
+      ctx.fillStyle='rgba(74,158,255,0.4)';ctx.fill();
+      ctx.restore();
+    });
+
+    // overlay
+    ctx.fillStyle='rgba(15,17,23,0.42)';ctx.fillRect(0,0,BW,BH);
+
+    // title
+    ctx.textAlign='center';
+    ctx.font='11px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';ctx.globalAlpha=0.9;
+    ctx.fillText('MECÁNICA CLÁSICA  ·  UNIVERSIDAD TECNOLÓGICA DEL PERÚ  ·  2026',BW/2,140);
+    ctx.globalAlpha=1;
+    ctx.fillStyle='#e05c2a';ctx.fillRect(BW/2-90,150,180,2);
+    ctx.font='bold 22px Rajdhani,sans-serif';ctx.fillStyle='#fff';
+    ctx.fillText('Estudio de las vibraciones en la estructura de soporte de una',BW/2,185);
+    ctx.font='bold 26px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';
+    ctx.fillText('Centrífuga de Pesca',BW/2,218);
+    ctx.font='12px Barlow,sans-serif';ctx.fillStyle='#888';
+    ctx.fillText('Para reducir la fatiga mecánica mediante el análisis de frecuencias naturales — Chimbote',BW/2,242);
+    // members - auto sized boxes
+    const members=['Neira De La Cruz Walter','Quiñones Ruiz Elida G.','Sacsi Ccapera Doris D.','Toribio Blas Kenyo Scott','Zavaleta Guevara Kimberly F.'];
+    ctx.font='11px Barlow,sans-serif';
+    const pad=14, gap=8, boxH=22, totalW=members.reduce((a,m)=>a+ctx.measureText(m).width+pad*2+gap,0)-gap;
+    let bx=BW/2-totalW/2;
+    members.forEach((m)=>{
+      const tw=ctx.measureText(m).width, bw=tw+pad*2;
+      ctx.fillStyle='#1a2030';
+      ctx.beginPath();ctx.roundRect(bx,262,bw,boxH,4);ctx.fill();
+      ctx.strokeStyle='#2e3250';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle='#778';ctx.textAlign='left';
+      ctx.fillText(m,bx+pad,262+boxH/2+4);
+      bx+=bw+gap;
+    });
+    ctx.textAlign='center';
+    ctx.font='10px Barlow,sans-serif';ctx.fillStyle='#3a4060';
+    ctx.fillText('Docente: Medrano Rojas Denys Gonzalo',BW/2,298);
+
+    ctx.restore();
+    t+=0.016;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ============================================================
+// SLIDE 3 — MODELO DEL SISTEMA
+// ============================================================
+(function(){
+  const cv = document.getElementById('model-canvas');
+  const ctx = cv.getContext('2d');
+  const W=900, H=400;
+  cv.width=W; cv.height=H;
+  cv.style.width='100%'; cv.style.height='auto';
+  let angle=0, modelT=0;
+  const BW=W, BH=H;
+
+  function iso(x,y,z,W,H){
+    return{sx:W*0.18+x*0.866-y*0.866, sy:H*0.75+x*0.5+y*0.5-z*1.0};
+  }
+  function para(pts,fill,stroke,lw=1.5){
+    ctx.beginPath();ctx.moveTo(pts[0].sx,pts[0].sy);
+    pts.slice(1).forEach(p=>ctx.lineTo(p.sx,p.sy));
+    ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+    ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();
+  }
+
+  function drawLabel(x,y,text,col){
+    ctx.fillStyle=col;ctx.font=`${Math.max(9,H*0.028)}px Barlow,sans-serif`;
+    ctx.textAlign='left';ctx.fillText(text,x,y);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0c0e14';ctx.fillRect(0,0,W,H);
+    angle+=0.02;
+    modelT+=0.04;
+    const sc=1;
+    const vibY = Math.sin(modelT*3.14)*12; // mass oscillation
+
+    // LEFT SIDE: real centrifuge
+    const lx=30,ly=20;
+    // base supports
+    [[lx+40,lx+200],[lx+40,lx+200]].forEach(()=>{});
+    // shaft
+    ctx.fillStyle='#555';
+    ctx.beginPath();ctx.roundRect(lx+40,BH*0.45,180,8,3);ctx.fill();
+    ctx.strokeStyle='#888';ctx.lineWidth=1;ctx.stroke();
+    // support pillars
+    [[lx+50,BH*0.45],[lx+210,BH*0.45]].forEach(p=>{
+      ctx.fillStyle='#1e2a40';ctx.strokeStyle='#4a9eff';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.roundRect(p[0]-9,p[1],18,BH*0.3,3);ctx.fill();ctx.stroke();
+      ctx.beginPath();ctx.arc(p[0],p[1],7,0,Math.PI*2);
+      ctx.fillStyle='#1a2030';ctx.fill();ctx.strokeStyle='#4a9eff';ctx.stroke();
+      // reaction arrows
+      ctx.strokeStyle='#4a9eff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(p[0],p[1]-10);ctx.lineTo(p[0],p[1]-30);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(p[0]-5,p[1]-28);ctx.lineTo(p[0],p[1]-35);ctx.lineTo(p[0]+5,p[1]-28);ctx.fill();
+    });
+    ctx.fillStyle='#4a9eff';ctx.font=`${BH*0.06}px Share Tech Mono,monospace`;ctx.textAlign='center';
+    ctx.fillText('Ra',lx+50,BH*0.38);ctx.fillText('Rb',lx+210,BH*0.38);
+    // rotor body
+    const rx=lx+130,ry=BH*0.35;
+    ctx.save();ctx.translate(rx,ry);
+    ctx.beginPath();ctx.ellipse(0,0,55,18,0,0,Math.PI*2);
+    ctx.fillStyle='#1a1f2e';ctx.fill();ctx.strokeStyle='#e05c2a';ctx.lineWidth=2;ctx.stroke();
+    ctx.beginPath();ctx.rect(-55,0,110,52);
+    ctx.fillStyle='#1a1f2e';ctx.fill();ctx.strokeStyle='#e05c2a';ctx.lineWidth=2;ctx.stroke();
+    ctx.beginPath();ctx.ellipse(0,52,55,18,0,0,Math.PI*2);
+    ctx.fillStyle='#141830';ctx.fill();ctx.strokeStyle='#e05c2a';ctx.lineWidth=2;ctx.stroke();
+    // mass excentrica
+    const mex=Math.cos(angle)*35,mey=Math.sin(angle)*12;
+    ctx.beginPath();ctx.arc(mex,mey,10,0,Math.PI*2);
+    ctx.fillStyle='#ffaa00';ctx.fill();ctx.strokeStyle='#ff8800';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#1a1000';ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+    ctx.fillText('m',mex,mey+3);
+    // RPM arrow
+    ctx.beginPath();
+    ctx.arc(0,0,38,angle-0.5,angle+0.5);
+    ctx.strokeStyle='rgba(224,92,42,0.6)';ctx.lineWidth=2;ctx.stroke();
+    ctx.restore();
+    // W arrow
+    ctx.strokeStyle='#4caf50';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(rx,BH*0.5);ctx.lineTo(rx,BH*0.62);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(rx-5,BH*0.6);ctx.lineTo(rx,BH*0.65);ctx.lineTo(rx+5,BH*0.6);
+    ctx.fillStyle='#4caf50';ctx.fill();
+    // Fd arrow
+    const fdx=Math.cos(angle)*40,fdy=Math.sin(angle)*15;
+    ctx.strokeStyle='#e05c2a';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(rx+fdx,ry+fdy);ctx.lineTo(rx+fdx+20,ry+fdy-20);ctx.stroke();
+    // labels left
+    ctx.font=`${BH*0.055}px Barlow,sans-serif`;ctx.textAlign='left';
+    ctx.fillStyle='#4caf50';ctx.fillText('W=2453N',rx+8,BH*0.67);
+    ctx.fillStyle='#e05c2a';ctx.fillText('Fd=296N',rx+fdx+22,ry+fdy-22);
+    ctx.fillStyle='#e05c2a';ctx.fillText('3000 RPM',rx-20,ry-30);
+    ctx.fillStyle='#fff';ctx.font=`bold ${BH*0.065}px Rajdhani,sans-serif`;ctx.textAlign='center';
+    ctx.fillText('Vista real',lx+130,BH*0.12);
+    ctx.fillStyle='#555';ctx.font=`${BH*0.05}px Barlow,sans-serif`;
+    ctx.fillText('centrífuga industrial',lx+130,BH*0.2);
+
+    // ARROW MIDDLE
+    const mx=BW*0.5;
+    ctx.strokeStyle='#444';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(mx-35,BH*0.5);ctx.lineTo(mx+35,BH*0.5);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(mx+25,BH*0.5-6);ctx.lineTo(mx+35,BH*0.5);ctx.lineTo(mx+25,BH*0.5+6);
+    ctx.fillStyle='#444';ctx.fill();
+    ctx.fillStyle='#555';ctx.font=`${BH*0.048}px Barlow,sans-serif`;ctx.textAlign='center';
+    ctx.fillText('se modela como',mx,BH*0.42);
+
+    // RIGHT SIDE: mass-spring-damper — compact + labels far outside
+    const rx2=BW*0.68, ry2=45;
+    const sprH=70, dampH=70;
+
+    // ceiling
+    ctx.fillStyle='#1e2a40';ctx.strokeStyle='#4a9eff';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(rx2-40,ry2,80,10,3);ctx.fill();ctx.stroke();
+    for(let i=0;i<6;i++){
+      ctx.strokeStyle='#4a9eff';ctx.lineWidth=0.8;ctx.globalAlpha=0.4;
+      ctx.beginPath();ctx.moveTo(rx2-34+i*12,ry2);ctx.lineTo(rx2-40+i*12,ry2-7);ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+
+    // SPRING left — stretches with vibY
+    const spx=rx2-20;
+    const sprBottom = ry2+10+sprH+vibY;
+    ctx.strokeStyle='#4a9eff';ctx.lineWidth=2.5;ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(spx,ry2+10);
+    for(let i=0;i<=8;i++){
+      const yy=ry2+10+i*((sprH+vibY)/8);
+      const off=(i%2===0)?0:14;
+      ctx.lineTo(spx+off,yy);
+    }
+    ctx.stroke();
+    // spring label
+    ctx.strokeStyle='#4a9eff55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
+    ctx.beginPath();ctx.moveTo(spx-2,ry2+sprH/2+10);ctx.lineTo(rx2-105,ry2+sprH/2+10);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#4a9eff';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='right';
+    ctx.fillText('k = 8.5×10⁶ N/m',rx2-108,ry2+sprH/2+6);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4a9eff88';
+    ctx.fillText('rigidez estructural',rx2-108,ry2+sprH/2+20);
+
+    // DAMPER right — piston moves with vibY
+    const dpx=rx2+20;
+    const dpBottom = ry2+dampH+2+vibY;
+    ctx.strokeStyle='#4caf50';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(dpx,ry2+10);ctx.lineTo(dpx,ry2+28+vibY*0.3);ctx.stroke();
+    ctx.fillStyle='#1e3a1e';ctx.strokeStyle='#4caf50';ctx.lineWidth=1.8;
+    ctx.beginPath();ctx.roundRect(dpx-10,ry2+28+vibY*0.3,20,26,3);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.roundRect(dpx-6,ry2+20+vibY*0.3,12,10,2);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(dpx,ry2+54+vibY*0.3);ctx.lineTo(dpx,dpBottom);ctx.stroke();
+    // damper label
+    ctx.strokeStyle='#4caf5055';ctx.lineWidth=1;ctx.setLineDash([3,2]);
+    ctx.beginPath();ctx.moveTo(dpx+12,ry2+42);ctx.lineTo(rx2+105,ry2+42);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#4caf50';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='left';
+    ctx.fillText('ξ = 0.05',rx2+108,ry2+38);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4caf5088';
+    ctx.fillText('amortiguamiento',rx2+108,ry2+52);
+
+    // MASS block — moves up and down
+    const massy=ry2+dampH+2+vibY;
+    ctx.fillStyle='#1a1f2e';ctx.strokeStyle='#e05c2a';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.roundRect(rx2-45,massy,90,44,8);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font=`bold 18px Rajdhani,sans-serif`;ctx.textAlign='center';
+    ctx.fillText('850 kg',rx2,massy+26);
+    // mass label
+    ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
+    ctx.beginPath();ctx.moveTo(rx2+46,massy+22);ctx.lineTo(rx2+105,massy+22);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e05c2a';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='left';
+    ctx.fillText('mt = 850 kg',rx2+108,massy+18);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2a88';
+    ctx.fillText('masa total sistema',rx2+108,massy+32);
+
+    // Fd arrow pulsing
+    const fdPulse = 0.7+0.3*Math.sin(modelT*6);
+    ctx.strokeStyle=`rgba(224,92,42,${fdPulse})`;ctx.lineWidth=2.5;
+    const fdTop=massy-24;
+    ctx.beginPath();ctx.moveTo(rx2,fdTop);ctx.lineTo(rx2,massy-2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(rx2-5,massy-9);ctx.lineTo(rx2,massy-1);ctx.lineTo(rx2+5,massy-9);
+    ctx.fillStyle=`rgba(224,92,42,${fdPulse})`;ctx.fill();
+    // Fd label
+    ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
+    ctx.beginPath();ctx.moveTo(rx2-2,fdTop+12);ctx.lineTo(rx2-105,fdTop+34);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e05c2a';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='right';
+    ctx.fillText('Fd(t) = 296 N',rx2-108,fdTop+30);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2a88';
+    ctx.fillText('fuerza de excitación',rx2-108,fdTop+44);
+
+    // W arrow down from mass
+    ctx.strokeStyle='#4caf50';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(rx2,massy+44);ctx.lineTo(rx2,massy+64);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(rx2-5,massy+56);ctx.lineTo(rx2,massy+65);ctx.lineTo(rx2+5,massy+56);
+    ctx.fillStyle='#4caf50';ctx.fill();
+    // floor fixed
+    ctx.fillStyle='#1a2030';ctx.strokeStyle='#2e3a50';ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(rx2-45,ry2+dampH+50,90,8,2);ctx.fill();ctx.stroke();
+
+    // Titles RIGHT
+    ctx.fillStyle='#fff';ctx.font=`bold 22px Rajdhani,sans-serif`;ctx.textAlign='center';
+    ctx.fillText('Modelo 1 GDL',rx2,BH*0.1);
+    ctx.fillStyle='#555';ctx.font=`14px Barlow,sans-serif`;
+    ctx.fillText('masa–resorte–amortiguador',rx2,BH*0.18);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ============================================================
+// SLIDE 4 — CALCULOS EN VIVO
+// ============================================================
+const calcData = [
+  {color:'#4a9eff',icon:'⚙️',name:'Velocidad angular',formula:'ω = 2πn / 60',calc:'ω = 2π × 3000 / 60',result:'314.16 rad/s',note:'El rotor gira a 3000 RPM — equivale a 314 rad/s.',badge:null},
+  {color:'#4a9eff',icon:'📡',name:'Frecuencia de operación',formula:'fop = n / 60',calc:'fop = 3000 / 60',result:'50 Hz',note:'El sistema genera 50 ciclos de vibración por segundo.',badge:null},
+  {color:'#e05c2a',icon:'💥',name:'Fuerza de desequilibrio dinámico',formula:'Fd = m · ω² · r',calc:'Fd = 0.010 × (314.16)² × 0.30',result:'296.1 N',note:'Una masa de solo 10 g genera casi 300 N — 12.1% del peso del rotor.',badge:{t:'12.1% del peso',c:'badge-warn'}},
+  {color:'#4a9eff',icon:'🔔',name:'Frecuencia natural del sistema',formula:'fn = (1/2π)·√(k/mt)',calc:'fn = (1/2π)·√(8.5×10⁶/850)',result:'49.7 Hz',note:'La frecuencia natural es casi igual a la de operación — peligro.',badge:{t:'¡Muy cercana a fop!',c:'badge-warn'}},
+  {color:'#e74c3c',icon:'⚠️',name:'Razón de frecuencia y DAF',formula:'rf = fop/fn → DAF = 1/√((1−rf²)²+(2ξrf)²)',calc:'rf = 50/49.7 = 1.006 → DAF = 9.93',result:'DAF = 9.93×',note:'rf ≈ 1 indica resonancia. La fuerza se amplifica casi 10 veces.',badge:{t:'⚠ ZONA DE RESONANCIA',c:'badge-danger'}},
+  {color:'#e74c3c',icon:'💀',name:'Fuerza amplificada y esfuerzo alternante',formula:'Fr = DAF·Fd → σa = Mf/(I/c)',calc:'Fr = 9.93×296.1 = 2940 N → σa = 39.2 MPa',result:'σa = 39.2 MPa',note:'Supera el límite admisible (~30 MPa). Riesgo real de falla estructural.',badge:{t:'Supera límite de fatiga',c:'badge-danger'}},
+];
+let calcCurrent = -1;
+
+function buildCalcs(){
+  const prog=document.getElementById('calc-progress');
+  const list=document.getElementById('steps-list');
+  prog.innerHTML='';list.innerHTML='';
+  calcData.forEach((_,i)=>{
+    const d=document.createElement('div');d.className='cp-dot';d.id='cpd'+i;prog.appendChild(d);
+  });
+  const lbl=document.createElement('span');lbl.className='cp-label';lbl.id='cp-lbl';
+  lbl.textContent='Presiona ▶ para comenzar';prog.appendChild(lbl);
+  calcData.forEach((s,i)=>{
+    const el=document.createElement('div');el.className='step-item';el.id='si'+i;
+    el.innerHTML=`
+      <div class="step-num" style="background:${s.color}22;color:${s.color}">${i+1}</div>
+      <div class="step-body">
+        <div class="step-name" style="color:${s.color}">${s.icon} ${s.name}</div>
+        <div class="step-formula">${s.formula}</div>
+        <div class="step-calc">${s.calc}</div>
+        <div class="step-result" style="color:${s.color}">${s.result}${s.badge?`<span class="badge ${s.badge.c}" style="margin-left:8px">${s.badge.t}</span>`:''}</div>
+        <div class="step-note">${s.note}</div>
+      </div>
+      <div class="step-check" id="sck${i}" style="color:${s.color}">✓</div>`;
+    list.appendChild(el);
+  });
+}
+buildCalcs();
+
+function calcNext(){
+  if(calcCurrent>=calcData.length-1)return;
+  if(calcCurrent>=0){
+    const p=document.getElementById('si'+calcCurrent);
+    p.classList.remove('active');p.classList.add('done');
+    document.getElementById('sck'+calcCurrent).classList.add('show');
+    document.getElementById('cpd'+calcCurrent).className='cp-dot done';
+  }
+  calcCurrent++;
+  const el=document.getElementById('si'+calcCurrent);
+  el.classList.add('show');setTimeout(()=>el.classList.add('active'),50);
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById('cpd'+calcCurrent).className='cp-dot active';
+  const labels=['Cinemática rotacional','Frecuencia de operación','Fuerzas dinámicas','Frecuencias naturales','Resonancia mecánica','Fatiga mecánica'];
+  document.getElementById('cp-lbl').textContent=labels[calcCurrent];
+  document.getElementById('calc-counter').textContent=(calcCurrent+1)+' / '+calcData.length;
+  if(calcCurrent===calcData.length-1){
+    const b=document.getElementById('calc-next-btn');b.textContent='✓ Completado';b.disabled=true;b.style.opacity='0.5';
+  }
+}
+function calcReset(){
+  calcCurrent=-1;buildCalcs();
+  const b=document.getElementById('calc-next-btn');b.textContent='▶ Siguiente paso';b.disabled=false;b.style.opacity='1';
+  document.getElementById('calc-counter').textContent='0 / '+calcData.length;
+  document.getElementById('cp-lbl').textContent='Presiona ▶ para comenzar';
+}
+
+// ============================================================
+// SLIDE 5 — GRAFICA RESONANCIA
+// ============================================================
+(function(){
+  const cv=document.getElementById('res-canvas');
+  const ctx=cv.getContext('2d');
+  const W=680, H=380;
+  cv.width=W; cv.height=H;
+  cv.style.width='100%'; cv.style.height='auto';
+  let resXi=0.05,resFop=50;
+  const fn=49.7;
+
+  function daf(rf,xi){const d=Math.sqrt(Math.pow(1-rf*rf,2)+Math.pow(2*xi*rf,2));return d<0.001?999:1/d;}
+  function rfToX(rf){return 52+((rf-0.1)/2.4)*(W-72);}
+  function dafToY(d){return 24+(1-Math.min(d,15)/15)*(H-64);}
+
+  function drawChart(rfCur){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0c0e14';ctx.fillRect(0,0,W,H);
+    const CW=W-72,CH=H-64,PL=52,PT=24;
+    // danger zone
+    const x1=rfToX(0.85),x2=rfToX(1.15);
+    ctx.fillStyle='rgba(231,76,60,0.06)';ctx.fillRect(x1,PT,x2-x1,CH);
+    ctx.strokeStyle='rgba(231,76,60,0.25)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(x1,PT);ctx.lineTo(x1,PT+CH);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x2,PT);ctx.lineTo(x2,PT+CH);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(231,76,60,0.5)';ctx.font='9px Barlow,sans-serif';ctx.textAlign='center';
+    ctx.fillText('ZONA RESONANCIA',(x1+x2)/2,PT+14);
+    // grid
+    ctx.strokeStyle='#1a2030';ctx.lineWidth=0.5;
+    for(let y=0;y<=15;y+=3){
+      const py=dafToY(y);
+      ctx.beginPath();ctx.moveTo(PL,py);ctx.lineTo(PL+CW,py);ctx.stroke();
+      ctx.fillStyle='#444';ctx.font='10px Share Tech Mono,monospace';ctx.textAlign='right';
+      ctx.fillText(y,PL-6,py+3);
+    }
+    for(let r=0.1;r<=2.5;r+=0.3){
+      const px=rfToX(r);
+      ctx.beginPath();ctx.moveTo(px,PT);ctx.lineTo(px,PT+CH);ctx.stroke();
+      ctx.fillStyle='#444';ctx.font='10px Share Tech Mono,monospace';ctx.textAlign='center';
+      ctx.fillText(r.toFixed(1),px,PT+CH+14);
+    }
+    // axes
+    ctx.strokeStyle='#2e3a50';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(PL,PT);ctx.lineTo(PL,PT+CH);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(PL,PT+CH);ctx.lineTo(PL+CW,PT+CH);ctx.stroke();
+    // axis labels
+    ctx.fillStyle='#555';ctx.font='10px Barlow,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Razón de frecuencia  rf = fop / fn',PL+CW/2,H-4);
+    ctx.save();ctx.translate(12,PT+CH/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText('Factor DAF',0,0);ctx.restore();
+    // ghost curves
+    [[0.3,'#2a4060'],[0.5,'#2a5060'],[0.7,'#2a4a40']].forEach(([x,col])=>{
+      ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.globalAlpha=0.5;
+      let f=true;
+      for(let px=0;px<=CW;px++){
+        const rf=0.1+(px/CW)*2.4,d=daf(rf,x),py=dafToY(d);
+        if(f){ctx.moveTo(PL+px,py);f=false;}else ctx.lineTo(PL+px,py);
+      }
+      ctx.stroke();ctx.globalAlpha=1;
+    });
+    // main curve
+    ctx.beginPath();ctx.strokeStyle='#4a9eff';ctx.lineWidth=2.5;
+    let first=true;
+    for(let px=0;px<=CW;px++){
+      const rf=0.1+(px/CW)*2.4,d=daf(rf,resXi),py=dafToY(Math.min(d,15));
+      if(first){ctx.moveTo(PL+px,py);first=false;}else ctx.lineTo(PL+px,py);
+    }
+    ctx.stroke();
+    // rf=1 line
+    const rfOnePx=rfToX(1);
+    ctx.strokeStyle='rgba(231,76,60,0.7)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(rfOnePx,PT);ctx.lineTo(rfOnePx,PT+CH);ctx.stroke();
+    ctx.fillStyle='rgba(231,76,60,0.8)';ctx.font='9px Barlow,sans-serif';ctx.textAlign='center';
+    ctx.fillText('rf = 1',rfOnePx,PT+10);
+    // operating point
+    const opD=daf(rfCur,resXi);
+    const opX=rfToX(rfCur),opY=dafToY(Math.min(opD,15));
+    ctx.strokeStyle='rgba(224,92,42,0.35)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(opX,PT+CH);ctx.lineTo(opX,opY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(PL,opY);ctx.lineTo(opX,opY);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();ctx.arc(opX,opY,8,0,Math.PI*2);ctx.fillStyle='rgba(224,92,42,0.2)';ctx.fill();
+    ctx.beginPath();ctx.arc(opX,opY,4,0,Math.PI*2);ctx.fillStyle='#e05c2a';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 11px Share Tech Mono,monospace';
+    const lx=opX>PL+CW-70?opX-60:opX+10;ctx.textAlign='left';
+    ctx.fillText('DAF='+opD.toFixed(2),lx,opY-8);
+    ctx.fillStyle='#e05c2a';ctx.font='bold 10px Share Tech Mono,monospace';ctx.textAlign='center';
+    ctx.fillText('rf='+rfCur.toFixed(3),opX,PT+CH+26);
+    // legend
+    ctx.font='10px Barlow,sans-serif';ctx.textAlign='left';
+    [[0.3,'#4060a0',20],[0.5,'#407080',72],[0.7,'#407060',124]].forEach(([v,c,ox])=>{
+      ctx.fillStyle=c;ctx.fillText('ξ='+v,PL+8+ox,PT+16);
+    });
+    ctx.fillStyle='#4a9eff';ctx.fillText('ξ='+resXi.toFixed(2)+' (actual)',PL+8,PT+28);
+    // update panel
+    const rfColor=Math.abs(rfCur-1)<0.15?'#e74c3c':Math.abs(rfCur-1)<0.3?'#e05c2a':'#4a9eff';
+    document.getElementById('ci-rf').textContent=rfCur.toFixed(3);
+    document.getElementById('ci-rf').style.color=rfColor;
+    document.getElementById('ci-daf').textContent=Math.min(opD,999).toFixed(2)+'×';
+    document.getElementById('ci-daf').style.color=rfColor;
+    document.getElementById('ci-fr').textContent=Math.round(Math.min(opD,999)*296.1).toLocaleString()+' N';
+    document.getElementById('ci-fr').style.color=rfColor;
+    document.getElementById('res-danger').style.opacity=Math.abs(rfCur-1)<0.15?'1':'0';
+  }
+
+  let rfCurrent=resFop/fn;
+  drawChart(rfCurrent);
+
+  document.getElementById('xi-sl').addEventListener('input',function(){
+    resXi=this.value/100;document.getElementById('xi-lbl').textContent=resXi.toFixed(2);
+    rfCurrent=resFop/fn;drawChart(rfCurrent);
+  });
+  document.getElementById('fop-sl').addEventListener('input',function(){
+    resFop=parseInt(this.value);document.getElementById('fop-lbl').textContent=resFop;
+    rfCurrent=resFop/fn;drawChart(rfCurrent);
+  });
+
+  let resAnimRf=0.2,resAnimRunning=false;
+  window.animateResCurve=function(){
+    if(resAnimRunning)return;resAnimRunning=true;resAnimRf=0.2;
+    function step(){
+      if(resAnimRf>=2.6){resAnimRunning=false;return;}
+      drawChart(resAnimRf);resAnimRf+=0.012;requestAnimationFrame(step);
+    }
+    step();
+  };
+  window.gotoResonance=function(){
+    resAnimRunning=false;resFop=50;resXi=0.05;
+    document.getElementById('xi-sl').value=5;document.getElementById('fop-sl').value=50;
+    document.getElementById('xi-lbl').textContent='0.05';document.getElementById('fop-lbl').textContent='50';
+    rfCurrent=50/fn;drawChart(rfCurrent);
+  };
+})();
+
+// ============================================================
+// SLIDE 6 — CALCULADORA INTERACTIVA
+// ============================================================
+(function(){
+  const fn=49.7,m=0.010,r=0.30,mt=850;
+  function daf(rf,xi){const d=Math.sqrt(Math.pow(1-rf*rf,2)+Math.pow(2*xi*rf,2));return d<0.001?999:1/d;}
+  function update(){
+    const rpm=parseInt(document.getElementById('sl-rpm-input').value);
+    const k=parseFloat(document.getElementById('sl-k-input').value)*1e6;
+    const xi=parseInt(document.getElementById('sl-xi-input').value)/100;
+    const omega=2*Math.PI*rpm/60;
+    const fop=rpm/60;
+    const fnCalc=1/(2*Math.PI)*Math.sqrt(k/mt);
+    const rf=fop/fnCalc;
+    const dafVal=Math.min(daf(rf,xi),99.99);
+    const fd=m*omega*omega*r;
+    const fr=dafVal*fd;
+    document.getElementById('sl-rpm').innerHTML=rpm.toLocaleString()+'<span class="sl-unit">RPM</span>';
+    document.getElementById('sl-k').innerHTML=(k/1e6).toFixed(2)+'<span class="sl-unit">× 10⁶ N/m</span>';
+    document.getElementById('sl-xi').textContent=xi.toFixed(2);
+    document.getElementById('rp-omega').textContent=omega.toFixed(2)+' rad/s';
+    document.getElementById('rp-fop').textContent=fop.toFixed(2)+' Hz';
+    document.getElementById('rp-fn').textContent=fnCalc.toFixed(2)+' Hz';
+    document.getElementById('rp-rf').textContent=rf.toFixed(3);
+    document.getElementById('rp-daf').textContent=dafVal.toFixed(2)+'×';
+    document.getElementById('rp-fd').textContent=Math.round(fd)+' N';
+    document.getElementById('rp-fr').textContent=Math.round(fr).toLocaleString()+' N';
+    const ind=document.getElementById('danger-ind');
+    const rfColor=Math.abs(rf-1)<0.1?'#e74c3c':Math.abs(rf-1)<0.25?'#e05c2a':'#4caf50';
+    document.getElementById('rp-rf').style.color=rfColor;
+    document.getElementById('rp-daf').style.color=rfColor;
+    document.getElementById('rp-fr').style.color=rfColor;
+    if(Math.abs(rf-1)<0.1){
+      ind.textContent='⚠ ZONA CRÍTICA DE RESONANCIA';
+      ind.style.background='#e74c3c22';ind.style.border='1px solid #e74c3c55';ind.style.color='#e74c3c';
+    } else if(Math.abs(rf-1)<0.25){
+      ind.textContent='⚠ Aproximándose a resonancia';
+      ind.style.background='#e05c2a22';ind.style.border='1px solid #e05c2a55';ind.style.color='#e05c2a';
+    } else {
+      ind.textContent='✅ Operación segura';
+      ind.style.background='#4caf5022';ind.style.border='1px solid #4caf5055';ind.style.color='#4caf50';
+    }
+  }
+  ['sl-rpm-input','sl-k-input','sl-xi-input'].forEach(id=>{
+    document.getElementById(id).addEventListener('input',update);
+  });
+  update();
+})();
+
+// ============================================================
+// SLIDE 7 — SIMULACION RESONANCIA
+// ============================================================
+(function(){
+  const cv=document.getElementById('sim-canvas');
+  const ctx=cv.getContext('2d');
+  const W=1000, H=460;
+  cv.width=W; cv.height=H;
+  cv.style.width='100%'; cv.style.height='auto';
+  let t=0,simRf=0.5,simRunning=true;
+
+  window.simSetNormal=function(){simRf=0.5;document.getElementById('sim-status').textContent='Operación normal — rf = 0.5';};
+  window.simSetResonance=function(){simRf=1.006;document.getElementById('sim-status').textContent='⚠ RESONANCIA ACTIVA — rf = 1.006 — DAF = 9.93×';};
+  window.simToggle=function(){
+    simRunning=!simRunning;
+    document.getElementById('sim-pause-btn').textContent=simRunning?'⏸ Pausar':'▶ Reanudar';
+    if(simRunning) draw();
+  };
+
+  function daf(rf){const xi=0.05;const d=Math.sqrt(Math.pow(1-rf*rf,2)+Math.pow(2*xi*rf,2));return d<0.001?50:Math.min(1/d,15);}
+
+  function drawStructure(cx,cy,amp,label,rfVal,col){
+    const dafV=daf(rfVal);
+    const vibY=Math.sin(t*6.28*rfVal)*amp*dafV*0.5;
+    // ground
+    ctx.fillStyle='#1a2030';ctx.fillRect(cx-85,cy+110,170,12);
+    // springs
+    [[cx-45],[cx+45]].forEach(([sx])=>{
+      ctx.strokeStyle='#4a9eff';ctx.lineWidth=2.5;ctx.lineJoin='round';
+      ctx.beginPath();ctx.moveTo(sx,cy+110);
+      for(let i=0;i<=8;i++){
+        const yy=cy+110-i*(80/8);
+        const off=(i%2===0)?0:14;
+        ctx.lineTo(sx+off,yy+vibY*0.4);
+      }
+      ctx.stroke();
+    });
+    // dampers
+    [[cx-65],[cx+55]].forEach(([dx])=>{
+      ctx.strokeStyle='#4caf50';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(dx,cy+110);ctx.lineTo(dx,cy+72+vibY*0.4);ctx.stroke();
+      ctx.fillStyle='#1e3a1e';ctx.strokeStyle='#4caf50';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.roundRect(dx-7,cy+50+vibY*0.4,14,26,3);ctx.fill();ctx.stroke();
+    });
+    // mass block
+    const my=cy-vibY;
+    ctx.fillStyle=col+'22';ctx.strokeStyle=col;ctx.lineWidth=3;
+    ctx.beginPath();ctx.roundRect(cx-70,my-28,140,56,10);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 18px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText('850 kg',cx,my+7);
+    // rotor on mass
+    ctx.save();ctx.translate(cx,my-50);
+    ctx.beginPath();ctx.ellipse(0,0,36,13,0,0,Math.PI*2);
+    ctx.fillStyle='#141830';ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.stroke();
+    const ma=t*6.28*(rfVal*3);
+    const mex=Math.cos(ma)*22,mey=Math.sin(ma)*8;
+    ctx.beginPath();ctx.arc(mex,mey,7,0,Math.PI*2);
+    ctx.fillStyle='#ffaa00';ctx.fill();ctx.restore();
+    // vibration wave indicator
+    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.beginPath();
+    for(let i=0;i<=140;i++){
+      const wx=cx-70+i;
+      const wy=cy+138+Math.sin((i/140)*Math.PI*6+t*6.28*rfVal)*amp*dafV*0.7;
+      if(i===0)ctx.moveTo(wx,wy);else ctx.lineTo(wx,wy);
+    }
+    ctx.stroke();
+    // labels
+    ctx.fillStyle=col;ctx.font='bold 16px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText(label,cx,cy-125);
+    ctx.fillStyle='#555';ctx.font='12px Share Tech Mono,monospace';
+    ctx.fillText('rf='+rfVal+' | DAF='+dafV.toFixed(1)+'×',cx,cy+162);
+    ctx.fillStyle=col;ctx.font='bold 15px Rajdhani,sans-serif';
+    ctx.fillText('Amp: '+(amp*dafV*0.8).toFixed(1)+' mm',cx,cy-108);
+  }
+
+  function draw(){
+    if(!simRunning)return;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0c0e14';ctx.fillRect(0,0,W,H);
+    t+=0.016;
+    const cy=H*0.52;
+    // Normal
+    drawStructure(W*0.26,cy,4,'✅ Operación Normal',0.5,'#4caf50');
+    // Resonance
+    drawStructure(W*0.74,cy,4,'⚠ Resonancia',simRf,'#e74c3c');
+    // center
+    ctx.fillStyle='#e05c2a';ctx.font='bold 28px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText('vs',W/2,cy+10);
+    ctx.fillStyle='#e05c2a';ctx.font='bold 18px Rajdhani,sans-serif';
+    ctx.fillText('Comparación de amplitudes',W/2,H*0.06);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ============================================================
+// SLIDE 8 — MAQUETA 3D ANIMADA
+// ============================================================
+(function(){
+  const cv=document.getElementById('maqueta-canvas');
+  const ctx=cv.getContext('2d');
+  const W=800, H=380;
+  cv.width=W; cv.height=H;
+  cv.style.width='100%'; cv.style.height='auto';
+  let maqT=0,maqSpeed=1;
+
+  window.maqSetSpeed=function(s){
+    maqSpeed=s;
+    document.getElementById('maq-rpm').textContent=Math.round(3000*s)+' RPM'+(s>1.5?' ⚠ RESONANCIA':'');
+  };
+
+  function iso(x,y,z){return{sx:W*0.42+x*0.9-y*0.9,sy:H*0.58+x*0.45+y*0.45-z*1.1};}
+  function para(pts,fill,stroke,lw=1.5){
+    ctx.beginPath();ctx.moveTo(pts[0].sx,pts[0].sy);
+    pts.slice(1).forEach(p=>ctx.lineTo(p.sx,p.sy));
+    ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+    ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();
+  }
+  function spring(x,y,z0,z1,col,vib=0){
+    ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin='round';
+    const steps=8,dz=(z1-z0)/steps;
+    for(let i=0;i<=steps;i++){
+      const zz=z0+i*dz,off=(i%2===0)?0:8;
+      const p=iso(x+off,y,zz+vib);
+      if(i===0)ctx.moveTo(p.sx,p.sy);else ctx.lineTo(p.sx,p.sy);
+    }
+    ctx.stroke();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c0e14';ctx.fillRect(0,0,W,H);
+    maqT+=0.04*maqSpeed;
+    const angle=maqT*2;
+    const vibAmp=maqSpeed>1.5?4*maqSpeed:1.5;
+    const vib=Math.sin(maqT*6)*vibAmp;
+
+    // base
+    para([iso(20,20,0),iso(220,20,0),iso(220,200,0),iso(20,200,0)],'#3a2a10','#8B6914');
+    para([iso(20,20,0),iso(20,200,0),iso(20,200,-12),iso(20,20,-12)],'#2a1c08','#8B6914',1);
+    para([iso(220,20,0),iso(220,200,0),iso(220,200,-12),iso(220,20,-12)],'#221608','#8B6914',1);
+
+    // springs
+    [[40,40],[200,40],[40,160],[200,160]].forEach(([x,y],i)=>{
+      spring(x,y,0,55,'#4a9eff'+(i<2?'88':''),i>=2?vib:vib*0.5);
+    });
+    // platform
+    para([iso(30,30,55+vib),iso(210,30,55+vib),iso(210,190,55+vib),iso(30,190,55+vib)],'#1a2a3a','#4a9eff');
+
+    // motor
+    para([iso(80,120,95+vib),iso(150,120,95+vib),iso(150,170,95+vib),iso(80,170,95+vib)],'#1e3a1e','#4caf50');
+    para([iso(80,120,55+vib),iso(80,170,55+vib),iso(80,170,95+vib),iso(80,120,95+vib)],'#162e16','#4caf50',1);
+    para([iso(150,120,55+vib),iso(150,170,55+vib),iso(150,170,95+vib),iso(150,120,95+vib)],'#122512','#4caf50',1);
+    const mp=iso(115,145,78+vib);
+    ctx.fillStyle='#4caf50';ctx.font='bold 10px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText('DC 12V',mp.sx,mp.sy+4);
+
+    // shaft
+    const sh1=iso(150,145,76+vib),sh2=iso(190,145,76+vib);
+    ctx.beginPath();ctx.moveTo(sh1.sx,sh1.sy);ctx.lineTo(sh2.sx,sh2.sy);
+    ctx.strokeStyle='#aaa';ctx.lineWidth=6;ctx.stroke();
+    ctx.strokeStyle='#666';ctx.lineWidth=4;ctx.stroke();
+
+    // disk
+    const dp=iso(190,145,76+vib);
+    ctx.save();ctx.translate(dp.sx,dp.sy);ctx.scale(1,0.38);
+    ctx.beginPath();ctx.ellipse(0,0,38,38,0,0,Math.PI*2);
+    ctx.fillStyle='#12122a';ctx.fill();ctx.strokeStyle='#e05c2a';ctx.lineWidth=2.5;ctx.stroke();
+    for(let r=0;r<4;r++){
+      const a=angle+r*Math.PI/2;
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a)*34,Math.sin(a)*34);
+      ctx.strokeStyle='#e05c2a44';ctx.lineWidth=1;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(0,0,5,0,Math.PI*2);ctx.fillStyle='#333';ctx.fill();
+    // masa excentrica
+    const mex=Math.cos(angle)*25,mey=Math.sin(angle)*25;
+    ctx.beginPath();ctx.arc(mex,mey,8,0,Math.PI*2);
+    ctx.fillStyle='#ffaa00';ctx.fill();ctx.strokeStyle='#ff8800';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#1a1000';ctx.font='bold 7px sans-serif';ctx.textAlign='center';
+    ctx.fillText('m',mex,mey+2);
+    ctx.restore();
+
+    // RPM badge
+    const rpmBadge=iso(210,80,100+vib);
+    ctx.fillStyle='rgba(224,92,42,0.15)';
+    ctx.beginPath();if(ctx.roundRect)ctx.roundRect(rpmBadge.sx-35,rpmBadge.sy-12,70,22,4);else ctx.rect(rpmBadge.sx-35,rpmBadge.sy-12,70,22);
+    ctx.fill();ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='#e05c2a';ctx.font='bold 10px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText(Math.round(3000*maqSpeed)+' RPM',rpmBadge.sx,rpmBadge.sy+3);
+
+    // resonance warning
+    if(maqSpeed>1.5){
+      const rb=iso(50,180,80);
+      ctx.fillStyle='rgba(231,76,60,0.15)';
+      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(rb.sx-35,rb.sy-12,80,22,4);else ctx.rect(rb.sx-35,rb.sy-12,80,22);
+      ctx.fill();ctx.strokeStyle='#e74c3c55';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle='#e74c3c';ctx.font='bold 10px Rajdhani,sans-serif';ctx.textAlign='center';
+      ctx.fillText('⚠ RESONANCIA',rb.sx+5,rb.sy+3);
+    }
+
+    // labels
+    const labels=[
+      {p:iso(80,145,105+vib),t:'Motor DC 12V',c:'#4caf50',ox:-90,oy:-15},
+      {p:iso(190,145,105+vib),t:'Disco giratorio',c:'#e05c2a',ox:30,oy:-20},
+      {p:iso(40,40,35+vib),t:'Resorte k',c:'#4a9eff',ox:-80,oy:0},
+      {p:iso(20,160,42+vib),t:'Amortiguador',c:'#4caf50',ox:-95,oy:10},
+      {p:iso(120,200,-5),t:'Base MDF',c:'#c8a030',ox:-30,oy:20},
+      {p:iso(120,30,65+vib),t:'Plataforma',c:'#4a9eff',ox:-30,oy:-18},
+    ];
+    labels.forEach(l=>{
+      ctx.fillStyle=l.c;ctx.font='12px Barlow,sans-serif';ctx.textAlign='left';
+      ctx.fillText(l.t,l.p.sx+l.ox,l.p.sy+l.oy);
+      ctx.beginPath();ctx.arc(l.p.sx,l.p.sy,2.5,0,Math.PI*2);ctx.fillStyle=l.c;ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ============================================================
+// SLIDE 10 — MEDIDAS CORRECTIVAS EXPANDIBLES
+// ============================================================
+(function(){
+  const medData = [
+    {
+      icon:'⚙️', title:'Balanceo dinámico',
+      badge:'badge-ok', badgeText:'Prioridad alta',
+      desc:'Reducir la masa desbalanceada del rotor.',
+      detail:`• Masa actual desbalanceada: m = 0.01 kg
+• Genera Fd = 296 N a 3000 RPM
+• Con balanceo correcto: Fd puede reducirse &gt;80%
+• Método: balanceo dinámico en 2 planos
+• Norma de referencia: API 684`
+    },
+    {
+      icon:'🏗️', title:'Rigidez estructural',
+      badge:'badge-blue', badgeText:'Modifica fn',
+      desc:'Alejar fn de la frecuencia de operación.',
+      detail:`• fn actual: 49.7 Hz — peligrosamente cerca de fop = 50 Hz
+• Aumentar k &gt; 8.5×10⁶ N/m eleva fn
+• Meta: rf &lt; 0.7 o rf &gt; 1.4
+• Reforzar vigas y uniones soldadas del soporte
+• Resultado: DAF cae de 9.93× a &lt; 2×`
+    },
+    {
+      icon:'🔇', title:'Amortiguamiento',
+      badge:'badge-warn', badgeText:'Reduce DAF',
+      desc:'Incorporar aisladores para subir ξ.',
+      detail:`• ξ actual: 0.05 — muy bajo, permite amplificación extrema
+• Con ξ = 0.15 → DAF baja de 9.93× a ~3.4×
+• Con ξ = 0.30 → DAF baja a ~1.7×
+• Usar aisladores de goma o amortiguadores viscosos
+• Instalar entre base del motor y estructura`
+    },
+    {
+      icon:'🚫', title:'Evitar resonancia',
+      badge:'badge-danger', badgeText:'rf debe alejarse de 1',
+      desc:'No operar cerca de fn = 49.7 Hz.',
+      detail:`• Zona crítica: 0.85 &lt; rf &lt; 1.15
+• rf actual: 1.006 — dentro de zona peligrosa
+• Operar a velocidades &lt; 42 Hz o &gt; 57 Hz
+• Según ISO 20816: evitar velocidades críticas ±15%
+• Instalar variador de velocidad para control fino`
+    },
+    {
+      icon:'📡', title:'Monitoreo vibracional',
+      badge:'badge-blue', badgeText:'ISO 20816',
+      desc:'Acelerómetros para vigilancia continua.',
+      detail:`• Instalar acelerómetros en los apoyos Ra y Rb
+• Medir velocidad RMS de vibración continuamente
+• ISO 20816 Zona A: &lt; 2.3 mm/s RMS (operación nueva)
+• ISO 20816 Zona D: &gt; 7.1 mm/s RMS (peligro)
+• Alarma automática al superar umbrales`
+    },
+    {
+      icon:'📊', title:'Mantenimiento predictivo',
+      badge:'badge-ok', badgeText:'API 684',
+      desc:'FFT espectral para detectar fallas tempranas.',
+      detail:`• Análisis espectral FFT cada 30 días mínimo
+      • Detecta: desbalance, desalineación, desgaste
+• Reduce costos de mantenimiento correctivo &gt;40%
+• Evita paradas no programadas en planta pesquera
+• Software: CSI 2140, SKF Microlog o similar`
+    },
+  ];
+
+  const grid = document.getElementById('med-grid');
+  let activeCard = null;
+
+  medData.forEach((m,i)=>{
+    const card = document.createElement('div');
+    card.className = 'med-card';
+    card.innerHTML = `
+      <div class="med-icon">${m.icon}</div>
+      <div class="med-title">${m.title}</div>
+      <div class="med-desc">${m.desc}</div>
+      <div class="med-detail"><pre style="font-family:var(--font);white-space:pre-wrap;font-size:11px;color:#aaa;margin:0">${m.detail}</pre><div style="margin-top:8px"><span class="badge ${m.badge}">${m.badgeText}</span></div></div>
+      <div class="med-hint" style="font-size:10px;color:#444;margin-top:auto">👆 clic para ver más</div>
+    `;
+    card.addEventListener('click', ()=>{
+      if(activeCard && activeCard !== card){
+        activeCard.classList.remove('expanded');
+      }
+      card.classList.toggle('expanded');
+      activeCard = card.classList.contains('expanded') ? card : null;
+    });
+    grid.appendChild(card);
+  });
+})();
+function animateFatBars(){
+  setTimeout(()=>{document.getElementById('bar-real').style.width='100%';},200);
+  setTimeout(()=>{document.getElementById('bar-limit').style.width='77%';},400);
+  setTimeout(()=>{document.getElementById('bar-fr').style.width='100%';},600);
+  setTimeout(()=>{document.getElementById('bar-fd').style.width='10%';},800);
+}
+
+// ============================================================
+// ON ENTER CALLBACKS
+// ============================================================
+function onEnter(n){
+  if(n===8) animateFatBars();
+}
+
+// Init nav
+updateNav();
+</script>
+</body>
+</html>
