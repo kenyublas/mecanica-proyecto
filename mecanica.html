@@ -18,7 +18,7 @@
   --bg3: #1a1f2e;
   --border: #2e3250;
   --text: #ffffff;
-  --muted: #555;
+  --muted: #aaa;
   --font: 'Barlow', sans-serif;
   --font-title: 'Rajdhani', sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
@@ -66,8 +66,8 @@ html, body {
 
 .nav-btn {
   background: var(--bg3); border: 1px solid var(--border);
-  color: #aaa; padding: 6px 20px; border-radius: 6px;
-  cursor: pointer; font-family: var(--font); font-size: 13px;
+  color: #ffffff; padding: 6px 20px; border-radius: 6px;
+  cursor: pointer; font-family: var(--font); font-size: 15px;
   transition: all 0.2s;
 }
 .nav-btn:hover { background: var(--border); color: #fff; }
@@ -81,19 +81,19 @@ html, body {
 .dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
 .dot.done { background: #2e4a2e; }
 
-.nav-info { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
+.nav-info { font-size: 15px; color: var(--muted); font-family: var(--font-mono); }
 
 /* ===== SLIDE HEADER ===== */
 .slide-tag {
-  font-size: 10px; color: var(--orange); letter-spacing: 3px;
-  text-transform: uppercase; margin-bottom: 14px;
+  font-size: 15px; color: var(--orange); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 10px;
   font-family: var(--font-title);
 }
 
 .slide-title {
-  font-family: var(--font-title); font-size: 28px;
-  font-weight: 700; color: var(--text);
-  margin-bottom: 24px; line-height: 1.2;
+  font-family: var(--font-title); font-size: 34px;
+  font-weight: 700; color: #ffffff;
+  margin-bottom: 20px; line-height: 1.2;
 }
 
 /* ===== UTILS ===== */
@@ -111,7 +111,7 @@ html, body {
 }
 .badge {
   display: inline-block; padding: 3px 10px;
-  border-radius: 20px; font-size: 10px; font-weight: 600;
+  border-radius: 20px; font-size: 15px; font-weight: 600;
 }
 .badge-warn { background: #e05c2a22; border: 1px solid #e05c2a55; color: var(--orange); }
 .badge-danger { background: #e74c3c22; border: 1px solid #e74c3c55; color: var(--red); }
@@ -130,16 +130,16 @@ html, body {
 .s2-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;
 }
-.s2-stat { font-size: 52px; font-weight: 700; font-family: var(--font-title); }
-.s2-label { font-size: 15px; color: #ccc; margin-top: 6px; line-height: 1.4; font-weight: 500; }
-.s2-note { font-size: 13px; color: #666; margin-top: 8px; }
+.s2-stat { font-size: 56px; font-weight: 700; font-family: var(--font-title); }
+.s2-label { font-size: 16px; color: #ffffff; margin-top: 6px; line-height: 1.4; font-weight: 500; }
+.s2-note { font-size: 15px; color: #ffffff; margin-top: 8px; }
 .s2-risk {
   grid-column: span 2;
   background: #e05c2a0a; border: 1px solid #e05c2a33;
   border-radius: 10px; padding: 16px;
   display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
 }
-.risk-item { font-size: 14px; color: #999; }
+.risk-item { font-size: 16px; color: #ffffff; }
 .risk-item span { color: var(--orange); margin-right: 4px; }
 
 /* ============================================================
@@ -164,14 +164,14 @@ html, body {
 .step-num {
   width: 26px; height: 26px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 600; flex-shrink: 0;
+  font-size: 16px; font-weight: 600; flex-shrink: 0;
 }
 .step-body { flex: 1; }
-.step-name { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 3px; font-weight: 600; }
-.step-formula { font-family: var(--font-mono); font-size: 11px; color: #666; }
-.step-calc { font-family: var(--font-mono); font-size: 10px; color: #444; margin-top: 2px; }
-.step-result { font-size: 17px; font-weight: 600; margin-top: 3px; font-family: var(--font-title); }
-.step-note { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.step-name { font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 3px; font-weight: 700; }
+.step-formula { font-family: var(--font-mono); font-size: 15px; color: #ffffff; }
+.step-calc { font-family: var(--font-mono); font-size: 15px; color: #ffffff; margin-top: 2px; }
+.step-result { font-size: 22px; font-weight: 700; margin-top: 4px; font-family: var(--font-title); }
+.step-note { font-size: 16px; color: #ffffff; margin-top: 3px; line-height: 1.4; }
 .step-check { font-size: 16px; margin-left: auto; opacity: 0; transition: opacity 0.3s; flex-shrink: 0; }
 .step-check.show { opacity: 1; }
 .calc-progress { display: flex; gap: 5px; margin-bottom: 14px; align-items: center; }
@@ -182,9 +182,9 @@ html, body {
 }
 .cp-dot.done { background: var(--green); border-color: var(--green); }
 .cp-dot.active { background: var(--orange); border-color: var(--orange); transform: scale(1.3); }
-.cp-label { font-size: 10px; color: var(--muted); margin-left: 8px; }
+.cp-label { font-size: 15px; color: #fff; margin-left: 8px; }
 .calc-btns { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
-.calc-counter { font-size: 11px; color: var(--muted); margin-left: auto; font-family: var(--font-mono); }
+.calc-counter { font-size: 15px; color: #ffffff; margin-left: auto; font-family: var(--font-mono); }
 
 /* ============================================================
    SLIDE 5 — GRAFICA RESONANCIA
@@ -193,18 +193,18 @@ html, body {
 #res-canvas { flex: 1; height: 100%; border-radius: 8px; background: #0c0e14; display: block; }
 .chart-side { width: 170px; display: flex; flex-direction: column; gap: 10px; padding-top: 8px; }
 .chart-info { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
-.ci-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.ci-val { font-size: 22px; font-weight: 700; font-family: var(--font-title); }
-.ci-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.ci-label { font-size: 15px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.ci-val { font-size: 26px; font-weight: 700; font-family: var(--font-title); }
+.ci-sub { font-size: 15px; color: #ffffff; margin-top: 2px; }
 .chart-controls { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
 .ctrl-row { display: flex; align-items: center; gap: 8px; }
-.ctrl-row label { font-size: 10px; color: var(--muted); min-width: 80px; }
+.ctrl-row label { font-size: 15px; color: #ffffff; min-width: 80px; }
 .ctrl-row input[type=range] { flex: 1; accent-color: var(--orange); }
-.ctrl-row span { font-size: 10px; color: #aaa; min-width: 36px; text-align: right; font-family: var(--font-mono); }
+.ctrl-row span { font-size: 15px; color: #ffffff; min-width: 36px; text-align: right; font-family: var(--font-mono); }
 .res-danger {
   background: #e74c3c11; border: 1px solid #e74c3c33;
   border-radius: 10px; padding: 10px; text-align: center;
-  font-size: 11px; color: var(--red); line-height: 1.5;
+  font-size: 16px; color: var(--red); line-height: 1.5;
   opacity: 0; transition: opacity 0.4s;
 }
 
@@ -214,20 +214,20 @@ html, body {
 .inter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; }
 .inter-col { display: flex; flex-direction: column; gap: 12px; }
 .slider-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-.sl-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.sl-val { font-size: 26px; font-weight: 700; font-family: var(--font-title); margin-bottom: 8px; }
-.sl-unit { font-size: 12px; color: var(--muted); margin-left: 4px; }
+.sl-label { font-size: 15px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.sl-val { font-size: 30px; font-weight: 700; font-family: var(--font-title); margin-bottom: 8px; }
+.sl-unit { font-size: 15px; color: var(--muted); margin-left: 4px; }
 .sl-range { width: 100%; accent-color: var(--orange); }
 .sl-range-blue { accent-color: var(--blue); }
 .result-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-.rp-title { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+.rp-title { font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
 .rp-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1f2e; }
 .rp-row:last-child { border-bottom: none; }
-.rp-name { font-size: 11px; color: #888; }
-.rp-value { font-size: 16px; font-weight: 700; font-family: var(--font-title); }
+.rp-name { font-size: 16px; color: #ffffff; }
+.rp-value { font-size: 20px; font-weight: 700; font-family: var(--font-title); }
 .danger-indicator {
   margin-top: 12px; padding: 10px; border-radius: 8px; text-align: center;
-  font-size: 12px; font-weight: 600; transition: all 0.3s;
+  font-size: 15px; font-weight: 600; transition: all 0.3s;
 }
 
 /* ============================================================
@@ -246,15 +246,15 @@ html, body {
    ============================================================ */
 .fat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 16px; }
 .fat-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
-.fat-num { font-size: 30px; font-weight: 700; font-family: var(--font-title); }
-.fat-label { font-size: 10px; color: var(--muted); margin-top: 4px; }
-.fat-detail { font-size: 10px; color: #444; margin-top: 6px; font-family: var(--font-mono); }
+.fat-num { font-size: 34px; font-weight: 700; font-family: var(--font-title); }
+.fat-label { font-size: 15px; color: #ffffff; margin-top: 4px; }
+.fat-detail { font-size: 15px; color: #ffffff; margin-top: 6px; font-family: var(--font-mono); }
 .bar-section { display: flex; flex-direction: column; gap: 10px; }
 .bar-row { display: flex; align-items: center; gap: 12px; }
-.bar-name { font-size: 11px; color: #888; min-width: 160px; }
+.bar-name { font-size: 16px; color: #ffffff; min-width: 180px; }
 .bar-bg { flex: 1; height: 14px; background: #0c0e14; border-radius: 7px; overflow: hidden; border: 1px solid var(--border); }
 .bar-fill { height: 100%; border-radius: 7px; transition: width 1.2s ease; }
-.bar-val { font-size: 12px; font-weight: 600; min-width: 70px; text-align: right; font-family: var(--font-mono); }
+.bar-val { font-size: 15px; font-weight: 600; min-width: 70px; text-align: right; font-family: var(--font-mono); }
 
 /* ============================================================
    SLIDE 10 — MEDIDAS CORRECTIVAS
@@ -274,12 +274,12 @@ html, body {
   grid-column: span 1;
   transform: none;
 }
-.med-icon { font-size: 36px; transition: font-size 0.3s; }
+.med-icon { font-size: 44px; transition: font-size 0.3s; }
 .med-card.expanded .med-icon { font-size: 28px; }
-.med-title { font-size: 15px; font-weight: 700; color: var(--text); font-family: var(--font-title); letter-spacing: 0.5px; }
-.med-desc { font-size: 12px; color: #888; line-height: 1.5; }
+.med-title { font-size: 18px; font-weight: 700; color: #ffffff; font-family: var(--font-title); letter-spacing: 0.5px; }
+.med-desc { font-size: 15px; color: #ffffff; line-height: 1.5; }
 .med-detail {
-  font-size: 12px; color: #aaa; line-height: 1.6;
+  font-size: 15px; color: #ffffff; line-height: 1.7;
   max-height: 0; overflow: hidden;
   transition: max-height 0.4s ease, opacity 0.3s ease;
   opacity: 0; text-align: left; width: 100%;
@@ -289,7 +289,7 @@ html, body {
   max-height: 200px; opacity: 1;
   padding-top: 10px; margin-top: 6px;
 }
-.med-hint { font-size: 10px; color: var(--muted); margin-top: auto; }
+.med-hint { font-size: 15px; color: #ffffff; margin-top: auto; }
 .med-card.expanded .med-hint { display: none; }
 
 /* ============================================================
@@ -299,16 +299,16 @@ html, body {
 .concl-item {
   background: var(--bg3); border-left: 3px solid var(--orange);
   padding: 14px 18px; border-radius: 0 10px 10px 0;
-  font-size: 13px; color: #bbb; line-height: 1.5;
+  font-size: 16px; color: #ffffff; line-height: 1.5;
 }
 .concl-item strong { color: var(--text); }
-.concl-footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 14px; font-family: var(--font-mono); }
+.concl-footer { text-align: center; font-size: 15px; color: #ffffff; margin-top: 14px; font-family: var(--font-mono); }
 
 /* ===== BUTTON STYLES ===== */
 .btn {
   background: var(--bg3); border: 1px solid var(--border);
-  color: #aaa; padding: 6px 16px; border-radius: 8px;
-  cursor: pointer; font-family: var(--font); font-size: 12px;
+  color: #ffffff; padding: 6px 16px; border-radius: 8px;
+  cursor: pointer; font-family: var(--font); font-size: 15px;
   transition: all 0.2s;
 }
 .btn:hover { background: var(--border); color: #fff; }
@@ -342,10 +342,10 @@ html, body {
   /* Slide 2 - problema */
   .s2-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .s2-stat { font-size: 32px; }
-  .s2-label { font-size: 12px; }
-  .s2-note { font-size: 10px; }
+  .s2-label { font-size: 15px; }
+  .s2-note { font-size: 15px; }
   .s2-risk { flex-direction: column; gap: 6px; padding: 10px; }
-  .risk-item { font-size: 12px; }
+  .risk-item { font-size: 15px; }
 
   /* canvas slides - scale to fit */
   #model-canvas, #sim-canvas, #maqueta-canvas, #res-canvas {
@@ -358,8 +358,8 @@ html, body {
   /* Slide 4 - calculos */
   .steps-list { max-height: 55vh; overflow-y: auto; gap: 6px; }
   .step-item { padding: 10px 12px; gap: 10px; }
-  .step-result { font-size: 14px; }
-  .step-formula { font-size: 10px; }
+  .step-result { font-size: 16px; }
+  .step-formula { font-size: 15px; }
   .step-note { font-size: 9px; }
 
   /* Slide 5 - grafica resonancia */
@@ -368,17 +368,17 @@ html, body {
   .chart-info { flex: 1; min-width: 80px; padding: 8px; }
   .ci-val { font-size: 16px; }
   .chart-controls { flex-direction: row; flex-wrap: wrap; }
-  .ctrl-row label { min-width: 60px; font-size: 10px; }
+  .ctrl-row label { min-width: 60px; font-size: 15px; }
 
   /* Slide 6 - calculadora */
   .inter-grid { grid-template-columns: 1fr; gap: 10px; }
   .sl-val { font-size: 20px; }
   .rp-row { padding: 5px 0; }
-  .rp-value { font-size: 13px; }
+  .rp-value { font-size: 15px; }
 
   /* Slide 7 - simulacion */
   .sim-controls { flex-wrap: wrap; gap: 6px; }
-  .sim-controls .btn { font-size: 11px; padding: 5px 10px; }
+  .sim-controls .btn { font-size: 16px; padding: 5px 10px; }
 
   /* Slide 8 - maqueta */
   #maqueta-canvas { max-height: 50vh; }
@@ -387,22 +387,22 @@ html, body {
   .fat-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
   .fat-num { font-size: 24px; }
   .bar-row { flex-wrap: wrap; gap: 4px; }
-  .bar-name { min-width: 100%; font-size: 10px; }
-  .bar-val { font-size: 11px; }
+  .bar-name { min-width: 100%; font-size: 15px; }
+  .bar-val { font-size: 16px; }
 
   /* Slide 10 - medidas */
   .med-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .med-icon { font-size: 28px; }
-  .med-title { font-size: 13px; }
-  .med-desc { font-size: 11px; }
+  .med-title { font-size: 15px; }
+  .med-desc { font-size: 16px; }
 
   /* Slide 11 - conclusiones */
-  .concl-item { font-size: 12px; padding: 10px 14px; }
+  .concl-item { font-size: 15px; padding: 10px 14px; }
 
   /* navbar */
   #navbar { height: 52px; padding: 0 10px; }
-  .nav-btn { padding: 6px 12px; font-size: 12px; }
-  .nav-info { font-size: 11px; }
+  .nav-btn { padding: 6px 12px; font-size: 15px; }
+  .nav-info { font-size: 16px; }
   .dot { width: 6px; height: 6px; }
   .dot.active { width: 16px; }
 }
@@ -431,7 +431,7 @@ html, body {
             <div class="s2-stat orange">#1</div>
             <div class="s2-label">Perú: primer productor mundial de harina de pescado</div>
             <div class="s2-note">700,000 empleos · 2.5% del PBI nacional</div>
-            <div class="s2-note" style="margin-top:6px;color:#666">Seguido de Tailandia, China y Chile · Epicentro: Chimbote, Áncash</div>
+            <div class="s2-note" style="margin-top:6px;color:#fff">Seguido de Tailandia, China y Chile · Epicentro: Chimbote, Áncash</div>
             <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
               <span class="badge badge-ok">SNP 2025</span>
               <span class="badge badge-blue">50% economía regional</span>
@@ -441,7 +441,7 @@ html, body {
             <div class="s2-stat blue">3,000</div>
             <div class="s2-label">RPM de operación de la centrífuga industrial</div>
             <div class="s2-note">Sin monitoreo vibracional continuo en la mayoría de plantas pesqueras</div>
-            <div class="s2-note" style="margin-top:6px;color:#666">Aceleración centrípeta: 29,609 m/s² ≈ 3020g</div>
+            <div class="s2-note" style="margin-top:6px;color:#fff">Aceleración centrípeta: 29,609 m/s² ≈ 3020g</div>
             <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
               <span class="badge badge-warn">Alta velocidad</span>
               <span class="badge badge-blue">ω = 314.16 rad/s</span>
@@ -451,7 +451,7 @@ html, body {
             <div class="s2-stat" style="color:var(--yellow)">180,000</div>
             <div class="s2-label">Ciclos de vibración por hora en operación continua</div>
             <div class="s2-note">Genera fatiga estructural acumulativa en los soportes</div>
-            <div class="s2-note" style="margin-top:6px;color:#666">Equivale a 4.3 millones de ciclos por día · 50 ciclos/s</div>
+            <div class="s2-note" style="margin-top:6px;color:#fff">Equivale a 4.3 millones de ciclos por día · 50 ciclos/s</div>
             <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
               <span class="badge badge-warn">Fatiga acelerada</span>
               <span class="badge" style="background:#ffaa0022;border:1px solid #ffaa0055;color:#ffaa00">Carga cíclica</span>
@@ -461,7 +461,7 @@ html, body {
             <div class="s2-stat red">rf = 1.006</div>
             <div class="s2-label">Razón de frecuencia — sistema operando cerca de resonancia</div>
             <div class="s2-note">Condición crítica: fn = 49.7 Hz ≈ fop = 50 Hz</div>
-            <div class="s2-note" style="margin-top:6px;color:#666">DAF = 9.93× · Fuerza amplificada: 2,940 N · σa = 39.2 MPa</div>
+            <div class="s2-note" style="margin-top:6px;color:#fff">DAF = 9.93× · Fuerza amplificada: 2,940 N · σa = 39.2 MPa</div>
             <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
               <span class="badge badge-danger">⚠ Zona crítica</span>
               <span class="badge badge-danger">Supera límite fatiga</span>
@@ -478,7 +478,52 @@ html, body {
       </div>
 
       <!-- ======================================================
-           SLIDE 3: MODELO DEL SISTEMA
+           SLIDE 3: OBJETIVOS
+           ====================================================== -->
+      <div class="slide" id="s3obj">
+        <p class="slide-tag">Propósito del estudio</p>
+        <h2 class="slide-title">Objetivos</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1">
+          <!-- Objetivo General -->
+          <div style="grid-column:span 2;background:#1a1520;border:1px solid #e05c2a55;border-left:4px solid #e05c2a;border-radius:10px;padding:18px 22px">
+            <div style="font-size:11px;color:#e05c2a;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;font-family:var(--font-title);font-weight:700">🎯 Objetivo General</div>
+            <div style="font-size:18px;color:#ffffff;line-height:1.5;font-weight:500">Analizar las vibraciones en la estructura de soporte de una centrífuga de pesca utilizando principios de la mecánica clásica, con el fin de identificar condiciones que puedan generar <span style="color:#e05c2a;font-weight:700">fatiga mecánica</span>.</div>
+          </div>
+          <!-- OE 1 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#4a9eff;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 1</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Aplicar el <span style="color:#4a9eff">Sistema Internacional de Unidades</span> y análisis dimensional en las magnitudes físicas involucradas (fuerza, masa, aceleración).</div>
+          </div>
+          <!-- OE 2 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#4a9eff;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 2</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Describir el movimiento de la centrífuga mediante conceptos de <span style="color:#4a9eff">movimiento circular y aceleración</span>.</div>
+          </div>
+          <!-- OE 3 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#4caf50;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 3</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Representar las fuerzas que actúan sobre la estructura utilizando <span style="color:#4caf50">vectores</span> y analizar las condiciones de equilibrio.</div>
+          </div>
+          <!-- OE 4 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#4caf50;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 4</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Determinar la <span style="color:#4caf50">frecuencia natural</span> del sistema y evaluar la influencia de la resonancia mecánica sobre la estructura.</div>
+          </div>
+          <!-- OE 5 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid #e74c3c;border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#e74c3c;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 5</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Evaluar cómo las fuerzas dinámicas pueden generar <span style="color:#e74c3c">vibraciones que afectan la estabilidad</span> del sistema de soporte.</div>
+          </div>
+          <!-- OE 6 -->
+          <div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid #e74c3c;border-radius:10px;padding:16px 18px">
+            <div style="font-size:11px;color:#e74c3c;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:700">OE 6</div>
+            <div style="font-size:15px;color:#ffffff;line-height:1.5">Proponer <span style="color:#e74c3c">medidas correctivas</span> para reducir la fatiga mecánica y mejorar la confiabilidad operativa.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SLIDE 4: MODELO DEL SISTEMA (was 3)
            ====================================================== -->
       <div class="slide" id="s3">
         <p class="slide-tag">Modelado dinámico</p>
@@ -725,7 +770,7 @@ html, body {
 // ============================================================
 // NAVIGATION
 // ============================================================
-const TOTAL = 11;
+const TOTAL = 12;
 let current = 0;
 const track = document.getElementById('track');
 const navDots = document.getElementById('nav-dots');
@@ -965,33 +1010,32 @@ document.addEventListener('keydown', e=>{
 
     // title
     ctx.textAlign='center';
-    ctx.font='11px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';ctx.globalAlpha=0.9;
-    ctx.fillText('MECÁNICA CLÁSICA  ·  UNIVERSIDAD TECNOLÓGICA DEL PERÚ  ·  2026',BW/2,140);
-    ctx.globalAlpha=1;
-    ctx.fillStyle='#e05c2a';ctx.fillRect(BW/2-90,150,180,2);
-    ctx.font='bold 22px Rajdhani,sans-serif';ctx.fillStyle='#fff';
-    ctx.fillText('Estudio de las vibraciones en la estructura de soporte de una',BW/2,185);
-    ctx.font='bold 26px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';
+    ctx.font='bold 13px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';ctx.globalAlpha=1;
+    ctx.fillText('MECÁNICA CLÁSICA  ·  UNIVERSIDAD TECNOLÓGICA DEL PERÚ  ·  2026',BW/2,135);
+    ctx.fillStyle='#e05c2a';ctx.fillRect(BW/2-100,145,200,2);
+    ctx.font='bold 26px Rajdhani,sans-serif';ctx.fillStyle='#ffffff';
+    ctx.fillText('Estudio de las vibraciones en la estructura de soporte de una',BW/2,182);
+    ctx.font='bold 30px Rajdhani,sans-serif';ctx.fillStyle='#e05c2a';
     ctx.fillText('Centrífuga de Pesca',BW/2,218);
-    ctx.font='12px Barlow,sans-serif';ctx.fillStyle='#888';
-    ctx.fillText('Para reducir la fatiga mecánica mediante el análisis de frecuencias naturales — Chimbote',BW/2,242);
+    ctx.font='bold 14px Barlow,sans-serif';ctx.fillStyle='#ffffff';
+    ctx.fillText('Para reducir la fatiga mecánica mediante el análisis de frecuencias naturales — Chimbote',BW/2,244);
     // members - auto sized boxes
     const members=['Neira De La Cruz Walter','Quiñones Ruiz Elida G.','Sacsi Ccapera Doris D.','Toribio Blas Kenyo Scott','Zavaleta Guevara Kimberly F.'];
-    ctx.font='11px Barlow,sans-serif';
-    const pad=14, gap=8, boxH=22, totalW=members.reduce((a,m)=>a+ctx.measureText(m).width+pad*2+gap,0)-gap;
+    ctx.font='bold 12px Barlow,sans-serif';
+    const pad=14, gap=8, boxH=24, totalW=members.reduce((a,m)=>a+ctx.measureText(m).width+pad*2+gap,0)-gap;
     let bx=BW/2-totalW/2;
     members.forEach((m)=>{
       const tw=ctx.measureText(m).width, bw=tw+pad*2;
       ctx.fillStyle='#1a2030';
       ctx.beginPath();ctx.roundRect(bx,262,bw,boxH,4);ctx.fill();
-      ctx.strokeStyle='#2e3250';ctx.lineWidth=1;ctx.stroke();
-      ctx.fillStyle='#778';ctx.textAlign='left';
+      ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle='#ffffff';ctx.textAlign='left';
       ctx.fillText(m,bx+pad,262+boxH/2+4);
       bx+=bw+gap;
     });
     ctx.textAlign='center';
-    ctx.font='10px Barlow,sans-serif';ctx.fillStyle='#3a4060';
-    ctx.fillText('Docente: Medrano Rojas Denys Gonzalo',BW/2,298);
+    ctx.font='bold 11px Barlow,sans-serif';ctx.fillStyle='#ffffff';
+    ctx.fillText('Docente: Medrano Rojas Denys Gonzalo',BW/2,300);
 
     ctx.restore();
     t+=0.016;
@@ -1040,7 +1084,7 @@ document.addEventListener('keydown', e=>{
     // base supports
     [[lx+40,lx+200],[lx+40,lx+200]].forEach(()=>{});
     // shaft
-    ctx.fillStyle='#555';
+    ctx.fillStyle='#ffffff';
     ctx.beginPath();ctx.roundRect(lx+40,BH*0.45,180,8,3);ctx.fill();
     ctx.strokeStyle='#888';ctx.lineWidth=1;ctx.stroke();
     // support pillars
@@ -1092,7 +1136,7 @@ document.addEventListener('keydown', e=>{
     ctx.fillStyle='#e05c2a';ctx.fillText('3000 RPM',rx-20,ry-30);
     ctx.fillStyle='#fff';ctx.font=`bold ${BH*0.065}px Rajdhani,sans-serif`;ctx.textAlign='center';
     ctx.fillText('Vista real',lx+130,BH*0.12);
-    ctx.fillStyle='#555';ctx.font=`${BH*0.05}px Barlow,sans-serif`;
+    ctx.fillStyle='#ffffff';ctx.font=`${BH*0.05}px Barlow,sans-serif`;
     ctx.fillText('centrífuga industrial',lx+130,BH*0.2);
 
     // ARROW MIDDLE
@@ -1100,8 +1144,8 @@ document.addEventListener('keydown', e=>{
     ctx.strokeStyle='#444';ctx.lineWidth=2.5;
     ctx.beginPath();ctx.moveTo(mx-35,BH*0.5);ctx.lineTo(mx+35,BH*0.5);ctx.stroke();
     ctx.beginPath();ctx.moveTo(mx+25,BH*0.5-6);ctx.lineTo(mx+35,BH*0.5);ctx.lineTo(mx+25,BH*0.5+6);
-    ctx.fillStyle='#444';ctx.fill();
-    ctx.fillStyle='#555';ctx.font=`${BH*0.048}px Barlow,sans-serif`;ctx.textAlign='center';
+    ctx.fillStyle='#ffffff';ctx.fill();
+    ctx.fillStyle='#ffffff';ctx.font=`${BH*0.048}px Barlow,sans-serif`;ctx.textAlign='center';
     ctx.fillText('se modela como',mx,BH*0.42);
 
     // RIGHT SIDE: mass-spring-damper — compact + labels far outside
@@ -1128,14 +1172,14 @@ document.addEventListener('keydown', e=>{
       ctx.lineTo(spx+off,yy);
     }
     ctx.stroke();
-    // spring label
+    // spring label — positioned at top
     ctx.strokeStyle='#4a9eff55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
-    ctx.beginPath();ctx.moveTo(spx-2,ry2+sprH/2+10);ctx.lineTo(rx2-105,ry2+sprH/2+10);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(spx-2,ry2+30);ctx.lineTo(rx2-105,ry2+30);ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle='#4a9eff';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='right';
-    ctx.fillText('k = 8.5×10⁶ N/m',rx2-108,ry2+sprH/2+6);
-    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4a9eff88';
-    ctx.fillText('rigidez estructural',rx2-108,ry2+sprH/2+20);
+    ctx.fillText('k = 8.5×10⁶ N/m',rx2-108,ry2+26);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4a9effcc';
+    ctx.fillText('rigidez estructural',rx2-108,ry2+40);
 
     // DAMPER right — piston moves with vibY
     const dpx=rx2+20;
@@ -1152,39 +1196,41 @@ document.addEventListener('keydown', e=>{
     ctx.setLineDash([]);
     ctx.fillStyle='#4caf50';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='left';
     ctx.fillText('ξ = 0.05',rx2+108,ry2+38);
-    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4caf5088';
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#4caf50cc';
     ctx.fillText('amortiguamiento',rx2+108,ry2+52);
 
     // MASS block — moves up and down
     const massy=ry2+dampH+2+vibY;
+    const massyFixed=ry2+dampH+2; // fixed Y for labels
     ctx.fillStyle='#1a1f2e';ctx.strokeStyle='#e05c2a';ctx.lineWidth=2.5;
     ctx.beginPath();ctx.roundRect(rx2-45,massy,90,44,8);ctx.fill();ctx.stroke();
     ctx.fillStyle='#fff';ctx.font=`bold 18px Rajdhani,sans-serif`;ctx.textAlign='center';
     ctx.fillText('850 kg',rx2,massy+26);
-    // mass label
+    // mass label — FIXED position
     ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
-    ctx.beginPath();ctx.moveTo(rx2+46,massy+22);ctx.lineTo(rx2+105,massy+22);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(rx2+46,massyFixed+22);ctx.lineTo(rx2+105,massyFixed+22);ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle='#e05c2a';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='left';
-    ctx.fillText('mt = 850 kg',rx2+108,massy+18);
-    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2a88';
-    ctx.fillText('masa total sistema',rx2+108,massy+32);
+    ctx.fillText('mt = 850 kg',rx2+108,massyFixed+18);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2acc';
+    ctx.fillText('masa total sistema',rx2+108,massyFixed+32);
 
-    // Fd arrow pulsing
+    // Fd arrow pulsing — arrow moves with mass but label is FIXED
     const fdPulse = 0.7+0.3*Math.sin(modelT*6);
+    const fdTopFixed = massyFixed-24; // fixed Y for label
+    const fdTop = massy-24;           // moving Y for arrow
     ctx.strokeStyle=`rgba(224,92,42,${fdPulse})`;ctx.lineWidth=2.5;
-    const fdTop=massy-24;
     ctx.beginPath();ctx.moveTo(rx2,fdTop);ctx.lineTo(rx2,massy-2);ctx.stroke();
     ctx.beginPath();ctx.moveTo(rx2-5,massy-9);ctx.lineTo(rx2,massy-1);ctx.lineTo(rx2+5,massy-9);
     ctx.fillStyle=`rgba(224,92,42,${fdPulse})`;ctx.fill();
-    // Fd label
+    // Fd label — FIXED position, clearly below k label
     ctx.strokeStyle='#e05c2a55';ctx.lineWidth=1;ctx.setLineDash([3,2]);
-    ctx.beginPath();ctx.moveTo(rx2-2,fdTop+12);ctx.lineTo(rx2-105,fdTop+34);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(rx2-2,fdTopFixed+12);ctx.lineTo(rx2-105,fdTopFixed+12);ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle='#e05c2a';ctx.font=`bold 13px Share Tech Mono,monospace`;ctx.textAlign='right';
-    ctx.fillText('Fd(t) = 296 N',rx2-108,fdTop+30);
-    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2a88';
-    ctx.fillText('fuerza de excitación',rx2-108,fdTop+44);
+    ctx.fillText('Fd(t) = 296 N',rx2-108,ry2+62);
+    ctx.font=`11px Barlow,sans-serif`;ctx.fillStyle='#e05c2acc';
+    ctx.fillText('fuerza de excitación',rx2-108,ry2+76);
 
     // W arrow down from mass
     ctx.strokeStyle='#4caf50';ctx.lineWidth=2.5;
@@ -1198,7 +1244,7 @@ document.addEventListener('keydown', e=>{
     // Titles RIGHT
     ctx.fillStyle='#fff';ctx.font=`bold 22px Rajdhani,sans-serif`;ctx.textAlign='center';
     ctx.fillText('Modelo 1 GDL',rx2,BH*0.1);
-    ctx.fillStyle='#555';ctx.font=`14px Barlow,sans-serif`;
+    ctx.fillStyle='#ffffff';ctx.font=`14px Barlow,sans-serif`;
     ctx.fillText('masa–resorte–amortiguador',rx2,BH*0.18);
 
     requestAnimationFrame(draw);
@@ -1286,12 +1332,12 @@ function calcReset(){
 
   function daf(rf,xi){const d=Math.sqrt(Math.pow(1-rf*rf,2)+Math.pow(2*xi*rf,2));return d<0.001?999:1/d;}
   function rfToX(rf){return 52+((rf-0.1)/2.4)*(W-72);}
-  function dafToY(d){return 24+(1-Math.min(d,15)/15)*(H-64);}
+  function dafToY(d){return 44+(1-Math.min(d,15)/15)*(H-80);}
 
   function drawChart(rfCur){
     ctx.clearRect(0,0,W,H);
     ctx.fillStyle='#0c0e14';ctx.fillRect(0,0,W,H);
-    const CW=W-72,CH=H-64,PL=52,PT=24;
+    const CW=W-72,CH=H-80,PL=52,PT=44;
     // danger zone
     const x1=rfToX(0.85),x2=rfToX(1.15);
     ctx.fillStyle='rgba(231,76,60,0.06)';ctx.fillRect(x1,PT,x2-x1,CH);
@@ -1299,38 +1345,39 @@ function calcReset(){
     ctx.beginPath();ctx.moveTo(x1,PT);ctx.lineTo(x1,PT+CH);ctx.stroke();
     ctx.beginPath();ctx.moveTo(x2,PT);ctx.lineTo(x2,PT+CH);ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle='rgba(231,76,60,0.5)';ctx.font='9px Barlow,sans-serif';ctx.textAlign='center';
-    ctx.fillText('ZONA RESONANCIA',(x1+x2)/2,PT+14);
+    // ZONA RESONANCIA label — above chart, bigger and white
+    ctx.fillStyle='rgba(231,76,60,0.9)';ctx.font='bold 13px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText('⚠ ZONA RESONANCIA',(x1+x2)/2, PT-10);
     // grid
     ctx.strokeStyle='#1a2030';ctx.lineWidth=0.5;
     for(let y=0;y<=15;y+=3){
       const py=dafToY(y);
       ctx.beginPath();ctx.moveTo(PL,py);ctx.lineTo(PL+CW,py);ctx.stroke();
-      ctx.fillStyle='#444';ctx.font='10px Share Tech Mono,monospace';ctx.textAlign='right';
+      ctx.fillStyle='#ffffff';ctx.font='12px Share Tech Mono,monospace';ctx.textAlign='right';
       ctx.fillText(y,PL-6,py+3);
     }
     for(let r=0.1;r<=2.5;r+=0.3){
       const px=rfToX(r);
       ctx.beginPath();ctx.moveTo(px,PT);ctx.lineTo(px,PT+CH);ctx.stroke();
-      ctx.fillStyle='#444';ctx.font='10px Share Tech Mono,monospace';ctx.textAlign='center';
-      ctx.fillText(r.toFixed(1),px,PT+CH+14);
+      ctx.fillStyle='#ffffff';ctx.font='12px Share Tech Mono,monospace';ctx.textAlign='center';
+      ctx.fillText(r.toFixed(1),px,PT+CH+16);
     }
     // axes
     ctx.strokeStyle='#2e3a50';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.moveTo(PL,PT);ctx.lineTo(PL,PT+CH);ctx.stroke();
     ctx.beginPath();ctx.moveTo(PL,PT+CH);ctx.lineTo(PL+CW,PT+CH);ctx.stroke();
     // axis labels
-    ctx.fillStyle='#555';ctx.font='10px Barlow,sans-serif';ctx.textAlign='center';
+    ctx.fillStyle='#ffffff';ctx.font='13px Barlow,sans-serif';ctx.textAlign='center';
     ctx.fillText('Razón de frecuencia  rf = fop / fn',PL+CW/2,H-4);
-    ctx.save();ctx.translate(12,PT+CH/2);ctx.rotate(-Math.PI/2);
+    ctx.save();ctx.translate(14,PT+CH/2);ctx.rotate(-Math.PI/2);
     ctx.fillText('Factor DAF',0,0);ctx.restore();
-    // ghost curves
-    [[0.3,'#2a4060'],[0.5,'#2a5060'],[0.7,'#2a4a40']].forEach(([x,col])=>{
+    // ghost curves — draw first, no labels here
+    [[0.3,'#4a7ab0'],[0.5,'#4a8090'],[0.7,'#4a806a']].forEach(([x,col])=>{
       ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.globalAlpha=0.5;
-      let f=true;
+      let fg=true;
       for(let px=0;px<=CW;px++){
-        const rf=0.1+(px/CW)*2.4,d=daf(rf,x),py=dafToY(d);
-        if(f){ctx.moveTo(PL+px,py);f=false;}else ctx.lineTo(PL+px,py);
+        const rf=0.1+(px/CW)*2.4,d=daf(rf,x),py=dafToY(Math.min(d,15));
+        if(fg){ctx.moveTo(PL+px,py);fg=false;}else ctx.lineTo(PL+px,py);
       }
       ctx.stroke();ctx.globalAlpha=1;
     });
@@ -1342,12 +1389,18 @@ function calcReset(){
       if(first){ctx.moveTo(PL+px,py);first=false;}else ctx.lineTo(PL+px,py);
     }
     ctx.stroke();
-    // rf=1 line
+    // legend — ONE place only, top-left inside chart
+    ctx.globalAlpha=1;
+    const legends=[['ξ=0.3','#7ab0e0'],['ξ=0.5','#7ab0c0'],['ξ=0.7','#7ab0a0'],['ξ='+resXi.toFixed(2)+' (actual)','#4a9eff']];
+    legends.forEach((l,i)=>{
+      ctx.fillStyle=l[1];ctx.font=i===3?'bold 13px Barlow,sans-serif':'12px Barlow,sans-serif';
+      ctx.textAlign='left';ctx.fillText(l[0],PL+10,PT+16+i*16);
+    });
     const rfOnePx=rfToX(1);
     ctx.strokeStyle='rgba(231,76,60,0.7)';ctx.lineWidth=1.5;
     ctx.beginPath();ctx.moveTo(rfOnePx,PT);ctx.lineTo(rfOnePx,PT+CH);ctx.stroke();
-    ctx.fillStyle='rgba(231,76,60,0.8)';ctx.font='9px Barlow,sans-serif';ctx.textAlign='center';
-    ctx.fillText('rf = 1',rfOnePx,PT+10);
+    ctx.fillStyle='rgba(231,76,60,0.9)';ctx.font='bold 12px Rajdhani,sans-serif';ctx.textAlign='center';
+    ctx.fillText('rf = 1',rfOnePx,PT+12);
     // operating point
     const opD=daf(rfCur,resXi);
     const opX=rfToX(rfCur),opY=dafToY(Math.min(opD,15));
@@ -1357,17 +1410,11 @@ function calcReset(){
     ctx.setLineDash([]);
     ctx.beginPath();ctx.arc(opX,opY,8,0,Math.PI*2);ctx.fillStyle='rgba(224,92,42,0.2)';ctx.fill();
     ctx.beginPath();ctx.arc(opX,opY,4,0,Math.PI*2);ctx.fillStyle='#e05c2a';ctx.fill();
-    ctx.fillStyle='#fff';ctx.font='bold 11px Share Tech Mono,monospace';
-    const lx=opX>PL+CW-70?opX-60:opX+10;ctx.textAlign='left';
+    ctx.fillStyle='#fff';ctx.font='bold 13px Share Tech Mono,monospace';
+    const lx=opX>PL+CW-70?opX-70:opX+10;ctx.textAlign='left';
     ctx.fillText('DAF='+opD.toFixed(2),lx,opY-8);
-    ctx.fillStyle='#e05c2a';ctx.font='bold 10px Share Tech Mono,monospace';ctx.textAlign='center';
+    ctx.fillStyle='#e05c2a';ctx.font='bold 12px Share Tech Mono,monospace';ctx.textAlign='center';
     ctx.fillText('rf='+rfCur.toFixed(3),opX,PT+CH+26);
-    // legend
-    ctx.font='10px Barlow,sans-serif';ctx.textAlign='left';
-    [[0.3,'#4060a0',20],[0.5,'#407080',72],[0.7,'#407060',124]].forEach(([v,c,ox])=>{
-      ctx.fillStyle=c;ctx.fillText('ξ='+v,PL+8+ox,PT+16);
-    });
-    ctx.fillStyle='#4a9eff';ctx.fillText('ξ='+resXi.toFixed(2)+' (actual)',PL+8,PT+28);
     // update panel
     const rfColor=Math.abs(rfCur-1)<0.15?'#e74c3c':Math.abs(rfCur-1)<0.3?'#e05c2a':'#4a9eff';
     document.getElementById('ci-rf').textContent=rfCur.toFixed(3);
@@ -1526,7 +1573,7 @@ function calcReset(){
     // labels
     ctx.fillStyle=col;ctx.font='bold 16px Rajdhani,sans-serif';ctx.textAlign='center';
     ctx.fillText(label,cx,cy-125);
-    ctx.fillStyle='#555';ctx.font='12px Share Tech Mono,monospace';
+    ctx.fillStyle='#ffffff';ctx.font='12px Share Tech Mono,monospace';
     ctx.fillText('rf='+rfVal+' | DAF='+dafV.toFixed(1)+'×',cx,cy+162);
     ctx.fillStyle=col;ctx.font='bold 15px Rajdhani,sans-serif';
     ctx.fillText('Amp: '+(amp*dafV*0.8).toFixed(1)+' mm',cx,cy-108);
@@ -1568,7 +1615,7 @@ function calcReset(){
     document.getElementById('maq-rpm').textContent=Math.round(3000*s)+' RPM'+(s>1.5?' ⚠ RESONANCIA':'');
   };
 
-  function iso(x,y,z){return{sx:W*0.42+x*0.9-y*0.9,sy:H*0.58+x*0.45+y*0.45-z*1.1};}
+  function iso(x,y,z){return{sx:W*0.46+(x-110)*0.9-(y-110)*0.9,sy:H*0.55+(x-110)*0.45+(y-110)*0.45-z*1.1};}
   function para(pts,fill,stroke,lw=1.5){
     ctx.beginPath();ctx.moveTo(pts[0].sx,pts[0].sy);
     pts.slice(1).forEach(p=>ctx.lineTo(p.sx,p.sy));
@@ -1753,8 +1800,8 @@ function calcReset(){
       <div class="med-icon">${m.icon}</div>
       <div class="med-title">${m.title}</div>
       <div class="med-desc">${m.desc}</div>
-      <div class="med-detail"><pre style="font-family:var(--font);white-space:pre-wrap;font-size:11px;color:#aaa;margin:0">${m.detail}</pre><div style="margin-top:8px"><span class="badge ${m.badge}">${m.badgeText}</span></div></div>
-      <div class="med-hint" style="font-size:10px;color:#444;margin-top:auto">👆 clic para ver más</div>
+      <div class="med-detail"><pre style="font-family:var(--font);white-space:pre-wrap;font-size:15px;color:#ffffff;margin:0">${m.detail}</pre><div style="margin-top:8px"><span class="badge ${m.badge}">${m.badgeText}</span></div></div>
+      <div class="med-hint" style="font-size:13px;color:#ffffff;margin-top:auto">👆 </div>
     `;
     card.addEventListener('click', ()=>{
       if(activeCard && activeCard !== card){
