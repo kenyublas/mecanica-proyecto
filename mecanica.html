@@ -430,63 +430,6 @@ html, body {
       </div>
 
       <!-- ======================================================
-           SLIDE 2: EL PROBLEMA
-           ====================================================== -->
-      <div class="slide" id="s2">
-        <p class="slide-tag">Contexto del estudio</p>
-        <h2 class="slide-title">El Problema</h2>
-        <div class="s2-grid">
-          <div class="card">
-            <div class="s2-stat orange">#1</div>
-            <div class="s2-label">Perú: primer productor mundial de harina de pescado</div>
-            <div class="s2-note">700,000 empleos · 2.5% del PBI nacional</div>
-            <div class="s2-note" style="margin-top:6px;color:#fff">Seguido de Tailandia, China y Chile · Epicentro: Chimbote, Áncash</div>
-            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-              <span class="badge badge-ok">SNP 2025</span>
-              <span class="badge badge-blue">50% economía regional</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="s2-stat blue">3,000</div>
-            <div class="s2-label">RPM de operación de la centrífuga industrial</div>
-            <div class="s2-note">Sin monitoreo vibracional continuo en la mayoría de plantas pesqueras</div>
-            <div class="s2-note" style="margin-top:6px;color:#fff">Aceleración centrípeta: 29,609 m/s² ≈ 3020g</div>
-            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-              <span class="badge badge-warn">Alta velocidad</span>
-              <span class="badge badge-blue">ω = 314.16 rad/s</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="s2-stat" style="color:var(--yellow)">180,000</div>
-            <div class="s2-label">Ciclos de vibración por hora en operación continua</div>
-            <div class="s2-note">Genera fatiga estructural acumulativa en los soportes</div>
-            <div class="s2-note" style="margin-top:6px;color:#fff">Equivale a 4.3 millones de ciclos por día · 50 ciclos/s</div>
-            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-              <span class="badge badge-warn">Fatiga acelerada</span>
-              <span class="badge" style="background:#ffaa0022;border:1px solid #ffaa0055;color:#ffaa00">Carga cíclica</span>
-            </div>
-          </div>
-          <div class="card">
-            <div class="s2-stat red">rf = 1.006</div>
-            <div class="s2-label">Razón de frecuencia — sistema operando cerca de resonancia</div>
-            <div class="s2-note">Condición crítica: fn = 49.7 Hz ≈ fop = 50 Hz</div>
-            <div class="s2-note" style="margin-top:6px;color:#fff">DAF = 9.93× · Fuerza amplificada: 2,940 N · σa = 39.2 MPa</div>
-            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-              <span class="badge badge-danger">⚠ Zona crítica</span>
-              <span class="badge badge-danger">Supera límite fatiga</span>
-            </div>
-          </div>
-          <div class="s2-risk">
-            <div class="risk-item"><span>⚠</span>Paradas no programadas</div>
-            <div class="risk-item"><span>⚠</span>Fatiga estructural acelerada</div>
-            <div class="risk-item"><span>⚠</span>Resonancia mecánica</div>
-            <div class="risk-item"><span>⚠</span>Altos costos de mantenimiento correctivo</div>
-            <div class="risk-item"><span>⚠</span>Riesgo para el personal</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================
            SLIDE 2b: DESCRIPCION PROBLEMATICA
            ====================================================== -->
       <div class="slide" id="s2b">
@@ -868,7 +811,7 @@ html, body {
 // ============================================================
 // NAVIGATION
 // ============================================================
-const TOTAL = 14;
+const TOTAL = 13;
 let current = 0;
 const track = document.getElementById('track');
 const navDots = document.getElementById('nav-dots');
@@ -1906,7 +1849,7 @@ function calcReset(){
       <div class="med-title">${m.title}</div>
       <div class="med-desc">${m.desc}</div>
       <div class="med-detail"><pre style="font-family:var(--font);white-space:pre-wrap;font-size:15px;color:#ffffff;margin:0">${m.detail}</pre><div style="margin-top:8px"><span class="badge ${m.badge}">${m.badgeText}</span></div></div>
-      <div class="med-hint" style="font-size:13px;color:#ffffff;margin-top:auto"></div>
+      <div class="med-hint" style="font-size:13px;color:#ffffff;margin-top:auto">👆 clic para ver más</div>
     `;
     card.addEventListener('click', ()=>{
       if(activeCard && activeCard !== card){
