@@ -676,52 +676,6 @@ html, body {
       </div>
 
       <!-- ======================================================
-           SLIDE 8b: DOMINIO DE CONTENIDOS
-           ====================================================== -->
-      <div class="slide" id="s8b">
-        <p class="slide-tag">Demostración física</p>
-        <h2 class="slide-title">Dominio de Contenidos — La Maqueta</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1">
-          <div style="background:#1a1f2e;border:1px solid #4a9eff44;border-top:3px solid #4a9eff;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">⚙️</div>
-            <div style="font-size:17px;font-weight:700;color:#4a9eff;margin-bottom:6px;font-family:var(--font-title)">Motor DC 12V</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Representa la <strong style="color:#4a9eff">fuente de excitación</strong> del sistema. Genera el movimiento circular a velocidad variable.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#4a9eff">ω = 2πn/60 = 314 rad/s</div>
-          </div>
-          <div style="background:#1a1f2e;border:1px solid #e05c2a44;border-top:3px solid #e05c2a;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">🔴</div>
-            <div style="font-size:17px;font-weight:700;color:#e05c2a;margin-bottom:6px;font-family:var(--font-title)">Disco + Masa excéntrica</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Simula el <strong style="color:#e05c2a">desbalance dinámico</strong> del rotor industrial. La masa descentrada genera la fuerza centrífuga.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#e05c2a">Fd = mω²r = 296 N</div>
-          </div>
-          <div style="background:#1a1f2e;border:1px solid #4caf5044;border-top:3px solid #4caf50;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">🌀</div>
-            <div style="font-size:17px;font-weight:700;color:#4caf50;margin-bottom:6px;font-family:var(--font-title)">Resortes helicoidales</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Representan la <strong style="color:#4caf50">rigidez estructural k</strong> de los soportes. Determinan la frecuencia natural del sistema.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#4caf50">fn = (1/2π)√(k/mt)</div>
-          </div>
-          <div style="background:#1a1f2e;border:1px solid #4caf5044;border-top:3px solid #4caf50;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">🟢</div>
-            <div style="font-size:17px;font-weight:700;color:#4caf50;margin-bottom:6px;font-family:var(--font-title)">Amortiguadores de goma</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Simulan el <strong style="color:#4caf50">coeficiente de amortiguamiento ξ</strong>. Reducen la amplitud vibracional y el factor DAF.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#4caf50">ξ = 0.05 → DAF = 9.93×</div>
-          </div>
-          <div style="background:#1a1f2e;border:1px solid #ffaa0044;border-top:3px solid #ffaa00;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">🟡</div>
-            <div style="font-size:17px;font-weight:700;color:#ffaa00;margin-bottom:6px;font-family:var(--font-title)">Plataforma + Base MDF</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Representa la <strong style="color:#ffaa00">estructura de soporte</strong> de la centrífuga. Sobre ella actúan las reacciones Ra y Rb.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#ffaa00">Ra = Rb = 1226.3 N</div>
-          </div>
-          <div style="background:#1a1520;border:1px solid #e74c3c44;border-top:3px solid #e74c3c;border-radius:10px;padding:16px">
-            <div style="font-size:36px;margin-bottom:8px">⚠️</div>
-            <div style="font-size:17px;font-weight:700;color:#e74c3c;margin-bottom:6px;font-family:var(--font-title)">Lo que demuestra</div>
-            <div style="font-size:15px;color:#ffffff;line-height:1.5;margin-bottom:10px">Al acercar la velocidad a <strong style="color:#e74c3c">3,000 RPM</strong> la amplitud de vibración se dispara — resonancia visible en tiempo real.</div>
-            <div style="background:#0f1117;border-radius:6px;padding:8px;font-family:var(--font-mono);font-size:13px;color:#e74c3c">rf → 1.006 ⚠ PELIGRO</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================
            SLIDE 9: FATIGA MECANICA
            ====================================================== -->
       <div class="slide" id="s9">
@@ -811,7 +765,7 @@ html, body {
 // ============================================================
 // NAVIGATION
 // ============================================================
-const TOTAL = 13;
+const TOTAL = 12;
 let current = 0;
 const track = document.getElementById('track');
 const navDots = document.getElementById('nav-dots');
